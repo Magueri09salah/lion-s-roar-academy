@@ -9,38 +9,234 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RealisationsRouteImport } from './routes/realisations'
+import { Route as ProgrammeRouteImport } from './routes/programme'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as InscriptionRouteImport } from './routes/inscription'
+import { Route as FormationRouteImport } from './routes/formation'
+import { Route as FormateursRouteImport } from './routes/formateurs'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as AcademieRouteImport } from './routes/academie'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FormationSlugRouteImport } from './routes/formation.$slug'
 
+const RealisationsRoute = RealisationsRouteImport.update({
+  id: '/realisations',
+  path: '/realisations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammeRoute = ProgrammeRouteImport.update({
+  id: '/programme',
+  path: '/programme',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InscriptionRoute = InscriptionRouteImport.update({
+  id: '/inscription',
+  path: '/inscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormationRoute = FormationRouteImport.update({
+  id: '/formation',
+  path: '/formation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormateursRoute = FormateursRouteImport.update({
+  id: '/formateurs',
+  path: '/formateurs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademieRoute = AcademieRouteImport.update({
+  id: '/academie',
+  path: '/academie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FormationSlugRoute = FormationSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => FormationRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academie': typeof AcademieRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/formateurs': typeof FormateursRoute
+  '/formation': typeof FormationRouteWithChildren
+  '/inscription': typeof InscriptionRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
+  '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/academie': typeof AcademieRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/formateurs': typeof FormateursRoute
+  '/formation': typeof FormationRouteWithChildren
+  '/inscription': typeof InscriptionRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
+  '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academie': typeof AcademieRoute
+  '/confidentialite': typeof ConfidentialiteRoute
+  '/contact': typeof ContactRoute
+  '/formateurs': typeof FormateursRoute
+  '/formation': typeof FormationRouteWithChildren
+  '/inscription': typeof InscriptionRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
+  '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/academie'
+    | '/confidentialite'
+    | '/contact'
+    | '/formateurs'
+    | '/formation'
+    | '/inscription'
+    | '/mentions-legales'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/academie'
+    | '/confidentialite'
+    | '/contact'
+    | '/formateurs'
+    | '/formation'
+    | '/inscription'
+    | '/mentions-legales'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/academie'
+    | '/confidentialite'
+    | '/contact'
+    | '/formateurs'
+    | '/formation'
+    | '/inscription'
+    | '/mentions-legales'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademieRoute: typeof AcademieRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
+  ContactRoute: typeof ContactRoute
+  FormateursRoute: typeof FormateursRoute
+  FormationRoute: typeof FormationRouteWithChildren
+  InscriptionRoute: typeof InscriptionRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  ProgrammeRoute: typeof ProgrammeRoute
+  RealisationsRoute: typeof RealisationsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/realisations': {
+      id: '/realisations'
+      path: '/realisations'
+      fullPath: '/realisations'
+      preLoaderRoute: typeof RealisationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programme': {
+      id: '/programme'
+      path: '/programme'
+      fullPath: '/programme'
+      preLoaderRoute: typeof ProgrammeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inscription': {
+      id: '/inscription'
+      path: '/inscription'
+      fullPath: '/inscription'
+      preLoaderRoute: typeof InscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formation': {
+      id: '/formation'
+      path: '/formation'
+      fullPath: '/formation'
+      preLoaderRoute: typeof FormationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formateurs': {
+      id: '/formateurs'
+      path: '/formateurs'
+      fullPath: '/formateurs'
+      preLoaderRoute: typeof FormateursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academie': {
+      id: '/academie'
+      path: '/academie'
+      fullPath: '/academie'
+      preLoaderRoute: typeof AcademieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +244,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/formation/$slug': {
+      id: '/formation/$slug'
+      path: '/$slug'
+      fullPath: '/formation/$slug'
+      preLoaderRoute: typeof FormationSlugRouteImport
+      parentRoute: typeof FormationRoute
+    }
   }
 }
 
+interface FormationRouteChildren {
+  FormationSlugRoute: typeof FormationSlugRoute
+}
+
+const FormationRouteChildren: FormationRouteChildren = {
+  FormationSlugRoute: FormationSlugRoute,
+}
+
+const FormationRouteWithChildren = FormationRoute._addFileChildren(
+  FormationRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademieRoute: AcademieRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
+  ContactRoute: ContactRoute,
+  FormateursRoute: FormateursRoute,
+  FormationRoute: FormationRouteWithChildren,
+  InscriptionRoute: InscriptionRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  ProgrammeRoute: ProgrammeRoute,
+  RealisationsRoute: RealisationsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
