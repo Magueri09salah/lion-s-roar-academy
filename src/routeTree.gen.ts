@@ -9,14 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RealisationsRouteImport } from './routes/realisations'
+import { Route as ProgrammeRouteImport } from './routes/programme'
 import { Route as FormationRouteImport } from './routes/formation'
+import { Route as FormateursRouteImport } from './routes/formateurs'
 import { Route as AcademieRouteImport } from './routes/academie'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FormationSlugRouteImport } from './routes/formation.$slug'
 
+const RealisationsRoute = RealisationsRouteImport.update({
+  id: '/realisations',
+  path: '/realisations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammeRoute = ProgrammeRouteImport.update({
+  id: '/programme',
+  path: '/programme',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FormationRoute = FormationRouteImport.update({
   id: '/formation',
   path: '/formation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormateursRoute = FormateursRouteImport.update({
+  id: '/formateurs',
+  path: '/formateurs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AcademieRoute = AcademieRouteImport.update({
@@ -38,43 +56,98 @@ const FormationSlugRoute = FormationSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/formateurs': typeof FormateursRoute
   '/formation': typeof FormationRouteWithChildren
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
   '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/formateurs': typeof FormateursRoute
   '/formation': typeof FormationRouteWithChildren
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
   '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/formateurs': typeof FormateursRoute
   '/formation': typeof FormationRouteWithChildren
+  '/programme': typeof ProgrammeRoute
+  '/realisations': typeof RealisationsRoute
   '/formation/$slug': typeof FormationSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/academie' | '/formation' | '/formation/$slug'
+  fullPaths:
+    | '/'
+    | '/academie'
+    | '/formateurs'
+    | '/formation'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/academie' | '/formation' | '/formation/$slug'
-  id: '__root__' | '/' | '/academie' | '/formation' | '/formation/$slug'
+  to:
+    | '/'
+    | '/academie'
+    | '/formateurs'
+    | '/formation'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/academie'
+    | '/formateurs'
+    | '/formation'
+    | '/programme'
+    | '/realisations'
+    | '/formation/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademieRoute: typeof AcademieRoute
+  FormateursRoute: typeof FormateursRoute
   FormationRoute: typeof FormationRouteWithChildren
+  ProgrammeRoute: typeof ProgrammeRoute
+  RealisationsRoute: typeof RealisationsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/realisations': {
+      id: '/realisations'
+      path: '/realisations'
+      fullPath: '/realisations'
+      preLoaderRoute: typeof RealisationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programme': {
+      id: '/programme'
+      path: '/programme'
+      fullPath: '/programme'
+      preLoaderRoute: typeof ProgrammeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/formation': {
       id: '/formation'
       path: '/formation'
       fullPath: '/formation'
       preLoaderRoute: typeof FormationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formateurs': {
+      id: '/formateurs'
+      path: '/formateurs'
+      fullPath: '/formateurs'
+      preLoaderRoute: typeof FormateursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/academie': {
@@ -116,7 +189,10 @@ const FormationRouteWithChildren = FormationRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademieRoute: AcademieRoute,
+  FormateursRoute: FormateursRoute,
   FormationRoute: FormationRouteWithChildren,
+  ProgrammeRoute: ProgrammeRoute,
+  RealisationsRoute: RealisationsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
