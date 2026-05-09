@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { FORMATIONS } from "@/lib/data";
+import { CertificationNotice } from "@/components/site/CertificationNotice";
 
 export const Route = createFileRoute("/inscription")({
   head: () => ({
@@ -71,6 +72,7 @@ function Inscription() {
               <h3 className="font-display text-lg">Une question ?</h3>
               <p className="mt-2 text-sm text-muted-foreground">Contactez-nous directement sur WhatsApp pour une réponse immédiate.</p>
             </div>
+            <CertificationNotice />
           </aside>
         </div>
       </Section>
