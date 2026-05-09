@@ -56,7 +56,7 @@ function FormationDetail() {
               <span className="eyebrow">Objectifs pédagogiques</span>
               <h2 className="mt-3 font-display text-3xl">Ce que vous apprendrez</h2>
               <ul className="mt-6 grid sm:grid-cols-2 gap-3">
-                {formation.objectives.map((o) => (
+                {formation.objectives.map((o: string) => (
                   <li key={o} className="flex gap-3 text-sm">
                     <Check size={18} style={{ color: "var(--gold)" }} className="shrink-0 mt-0.5" />
                     {o}
@@ -68,11 +68,11 @@ function FormationDetail() {
               <span className="eyebrow">Contenu</span>
               <h2 className="mt-3 font-display text-3xl">Catégories de cours</h2>
               <div className="mt-6 grid md:grid-cols-3 gap-5">
-                {formation.categories.map((c) => (
+                {formation.categories.map((c: { title: string; items: string[] }) => (
                   <div key={c.title} className="card-elegant">
                     <h3 className="font-display text-lg">{c.title}</h3>
                     <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                      {c.items.map((i) => <li key={i}>· {i}</li>)}
+                      {c.items.map((i: string) => <li key={i}>· {i}</li>)}
                     </ul>
                   </div>
                 ))}
