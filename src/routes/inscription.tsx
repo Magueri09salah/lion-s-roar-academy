@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, MessageCircle } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { FORMATIONS } from "@/lib/data";
 import { CertificationNotice } from "@/components/site/CertificationNotice";
+import { whatsappUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/inscription")({
   head: () => ({
@@ -46,6 +47,8 @@ function Inscription() {
                   <Field label="Ville" name="city" required />
                   <Select label="Niveau d'étude" name="level" options={["Lycée", "Bac", "Bac+2", "Bac+3", "Bac+5", "Autre"]} />
                   <Select label="Formation choisie" name="formation" options={FORMATIONS.map((f) => f.title)} />
+                  <Field label="Profession actuelle (optionnel)" name="profession" />
+                  <Select label="Disponibilité" name="availability" options={["Temps plein", "Soirs & week-ends", "Flexible"]} />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">Message (optionnel)</label>
@@ -53,9 +56,19 @@ function Inscription() {
                 </div>
                 <label className="flex items-start gap-3 text-xs text-muted-foreground">
                   <input type="checkbox" required className="mt-1" />
-                  J'accepte que mes informations soient utilisées pour traiter ma demande d'inscription.
+                  J'accepte la <a href="/confidentialite" className="underline">politique de confidentialité</a> et que mes informations soient utilisées pour traiter ma demande d'inscription.
                 </label>
-                <button type="submit" className="btn-gold w-full sm:w-auto">Envoyer ma demande</button>
+                <div className="flex flex-wrap gap-3">
+                  <button type="submit" className="btn-gold">Envoyer ma demande</button>
+                  <a
+                    href={whatsappUrl("Bonjour, je souhaite m'inscrire à la formation Architecture d'intérieur & Décoration de Lions Academy.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline-ink inline-flex items-center gap-2"
+                  >
+                    <MessageCircle size={16} /> S'inscrire via WhatsApp
+                  </a>
+                </div>
               </form>
             )}
           </div>

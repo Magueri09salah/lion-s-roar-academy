@@ -3,7 +3,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { PROJECTS } from "@/lib/data";
+import { PROJECTS, PROJECT_CATEGORIES } from "@/lib/data";
 
 export const Route = createFileRoute("/realisations")({
   head: () => ({
@@ -17,8 +17,6 @@ export const Route = createFileRoute("/realisations")({
   component: Realisations,
 });
 
-const CATEGORIES = ["Tous", "Rendu 3D", "Moodboard", "Projet de fin", "Planche"];
-
 function Realisations() {
   const [filter, setFilter] = useState("Tous");
   const [active, setActive] = useState<typeof PROJECTS[number] | null>(null);
@@ -29,7 +27,7 @@ function Realisations() {
       <PageHero eyebrow="Galerie" title="Travaux & projets d'élèves" intro="Une sélection de réalisations créées pendant la formation : rendus, moodboards, planches et projets de fin." />
       <Section>
         <div className="flex flex-wrap gap-2 mb-10">
-          {CATEGORIES.map((c) => (
+          {PROJECT_CATEGORIES.map((c) => (
             <button key={c} onClick={() => setFilter(c)} className={`px-4 py-2 text-sm rounded-full border transition-all ${filter === c ? "bg-ink text-ivory border-ink" : "border-border hover:border-foreground"}`}>
               {c}
             </button>
@@ -44,6 +42,7 @@ function Realisations() {
               <div className="mt-3">
                 <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{p.category} · {p.student}</span>
                 <h3 className="font-display text-lg mt-1">{p.title}</h3>
+                <div className="mt-1 text-xs text-muted-foreground">{p.promotion} · {p.status}</div>
               </div>
             </button>
           ))}
@@ -52,7 +51,7 @@ function Realisations() {
 
       {active && (
         <div className="fixed inset-0 z-[60] grid place-items-center p-4 bg-ink/70 backdrop-blur-sm" onClick={() => setActive(null)}>
-          <div className="bg-background rounded-3xl max-w-3xl w-full overflow-hidden relative" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-background rounded-3xl max-w-3xl w-full overflow-hidden relative max-h-[92vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <button onClick={() => setActive(null)} aria-label="Fermer" className="absolute top-4 right-4 z-10 grid place-items-center w-10 h-10 rounded-full bg-background/90 border border-border">
               <X size={18} />
             </button>
@@ -60,7 +59,20 @@ function Realisations() {
             <div className="p-8">
               <span className="eyebrow">{active.category}</span>
               <h2 className="mt-3 font-display text-2xl">{active.title}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">Réalisé par {active.student} dans le cadre de la formation Lions Academy.</p>
+              <p className="mt-1 text-xs text-muted-foreground">{active.student} · {active.promotion} · {active.status}</p>
+              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{active.description}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {active.software.map((s) => (
+                  <span key={s} className="px-3 py-1 text-xs rounded-full border border-border">{s}</span>
+                ))}
+              </div>
+              {active.gallery && active.gallery.length > 1 && (
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  {active.gallery.map((g, i) => (
+                    <img key={i} src={g} alt={`${active.title} — vue ${i + 1}`} className="rounded-xl border border-border aspect-square object-cover" />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

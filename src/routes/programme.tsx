@@ -31,9 +31,23 @@ function Programme() {
                   <h3 className="font-display text-2xl">{m.title}</h3>
                   <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.month}</span>
                 </div>
-                <ul className="mt-4 grid sm:grid-cols-3 gap-2 text-sm text-muted-foreground">
-                  {m.items.map((it) => <li key={it}>· {it}</li>)}
-                </ul>
+                <p className="mt-3 text-sm text-muted-foreground">{m.objective}</p>
+                <div className="mt-5 grid sm:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Axe principal</div>
+                    <div className="mt-1">{m.axis}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Contenu</div>
+                    <ul className="mt-1 text-muted-foreground space-y-0.5">
+                      {m.items.map((it) => <li key={it}>· {it}</li>)}
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Rendu</div>
+                    <div className="mt-1 inline-block px-3 py-1 rounded-full text-xs" style={{ background: "color-mix(in oklab, var(--gold) 25%, transparent)" }}>{m.deliverable}</div>
+                  </div>
+                </div>
               </div>
             </li>
           ))}

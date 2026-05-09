@@ -57,6 +57,8 @@ function FormationDetail() {
               <Row k="Durée" v={formation.duration} />
               <Row k="Format" v={formation.format} />
               <Row k="Niveau" v={formation.level} />
+              {formation.audience && <Row k="Public" v={formation.audience} />}
+              {formation.method && <Row k="Méthode" v={formation.method} />}
             </dl>
             <Link to="/inscription" className="btn-gold mt-6 w-full">Je m'inscris</Link>
             <div className="mt-6">

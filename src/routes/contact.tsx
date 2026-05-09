@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MapPin, Phone, MessageCircle, Check } from "lucide-react";
+import { Mail, MapPin, Phone, MessageCircle, Check, Instagram, Facebook, Youtube } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { SITE, whatsappUrl } from "@/lib/site";
@@ -29,6 +29,14 @@ function Contact() {
             <ContactCard icon={MessageCircle} label="WhatsApp" value="Discuter en direct" href={whatsappUrl()} />
             <ContactCard icon={Mail} label="Email" value={SITE.email} href={`mailto:${SITE.email}`} />
             <ContactCard icon={MapPin} label="Ville" value={SITE.city} />
+            <div className="card-elegant">
+              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Réseaux sociaux</div>
+              <div className="mt-3 flex gap-2">
+                <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid place-items-center w-10 h-10 rounded-full border border-border hover:border-foreground"><Instagram size={16} /></a>
+                <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="grid place-items-center w-10 h-10 rounded-full border border-border hover:border-foreground"><Facebook size={16} /></a>
+                <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="grid place-items-center w-10 h-10 rounded-full border border-border hover:border-foreground"><Youtube size={16} /></a>
+              </div>
+            </div>
           </div>
           <div className="lg:col-span-2">
             {sent ? (
@@ -44,7 +52,8 @@ function Contact() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <input name="name" required placeholder="Nom" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                   <input name="email" required type="email" placeholder="Email" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                  <input name="phone" placeholder="Téléphone" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring sm:col-span-2" />
+                  <input name="phone" placeholder="Téléphone" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  <input name="subject" required placeholder="Sujet" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                 </div>
                 <textarea name="message" required rows={6} placeholder="Votre message" className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                 <button type="submit" className="btn-gold">Envoyer le message</button>
