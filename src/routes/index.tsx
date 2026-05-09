@@ -4,6 +4,7 @@ import hero from "@/assets/hero.jpg";
 import { Section } from "@/components/site/Section";
 import { PRINCIPLES, FORMATIONS, PROJECTS } from "@/lib/data";
 import { whatsappUrl } from "@/lib/site";
+import { CertificationNotice } from "@/components/site/CertificationNotice";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -141,6 +142,9 @@ function HomePage() {
                 Discuter sur WhatsApp
               </a>
             </div>
+          </div>
+          <div className="mt-8 max-w-2xl mx-auto">
+            <CertificationNotice />
           </div>
         </div>
       </section>
