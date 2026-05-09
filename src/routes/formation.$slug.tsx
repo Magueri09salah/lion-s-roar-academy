@@ -1,12 +1,14 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { FORMATIONS } from "@/lib/data";
+import { fetchFormationBySlug } from "@/lib/api";
+import { CertificationNotice } from "@/components/site/CertificationNotice";
+import { ErrorState } from "@/components/site/States";
 
 export const Route = createFileRoute("/formation/$slug")({
-  loader: ({ params }) => {
-    const formation = FORMATIONS.find((f) => f.slug === params.slug);
+  loader: async ({ params }) => {
+    const formation = await fetchFormationBySlug(params.slug);
     if (!formation) throw notFound();
     return { formation };
   },
@@ -26,7 +28,14 @@ export const Route = createFileRoute("/formation/$slug")({
       <Link to="/formation" className="btn-outline-ink mt-6">Retour aux formations</Link>
     </div>
   ),
-  errorComponent: ({ error }) => <div className="container-page py-24"><p>{error.message}</p></div>,
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <div className="container-page py-24">
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </div>
+    );
+  },
 });
 
 function FormationDetail() {
@@ -50,6 +59,9 @@ function FormationDetail() {
               <Row k="Niveau" v={formation.level} />
             </dl>
             <Link to="/inscription" className="btn-gold mt-6 w-full">Je m'inscris</Link>
+            <div className="mt-6">
+              <CertificationNotice />
+            </div>
           </aside>
           <div className="lg:col-span-2 space-y-12">
             <div>
