@@ -1,18 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, Compass, GraduationCap, Layers, MessageCircle, Palette } from "lucide-react";
 import hero from "@/assets/hero.jpg";
+import academyImg from "@/assets/project-2.jpg";
 import { Section } from "@/components/site/Section";
-import { PRINCIPLES, FORMATIONS, PROJECTS } from "@/lib/data";
+import { PRINCIPLES, FORMATIONS, PROJECTS, PROGRAM } from "@/lib/data";
 import { whatsappUrl } from "@/lib/site";
 import { CertificationNotice } from "@/components/site/CertificationNotice";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Lions Academy — Architecture d'intérieur à distance" },
-      { name: "description", content: "Formation premium à distance en architecture d'intérieur et décoration. Méthode pratique, logiciels professionnels, projet de fin de formation et certificat." },
-      { property: "og:title", content: "Lions Academy — Architecture d'intérieur à distance" },
-      { property: "og:description", content: "Apprenez à concevoir, modéliser et présenter un projet d'aménagement intérieur." },
+      { title: "Lions Academy – Formation Architecture d'intérieur" },
+      { name: "description", content: "Formation professionnelle à distance en architecture et décoration." },
+      { property: "og:title", content: "Lions Academy – Formation Architecture d'intérieur" },
+      { property: "og:description", content: "Formation professionnelle à distance en architecture et décoration." },
     ],
   }),
   component: HomePage,
@@ -40,6 +41,15 @@ function HomePage() {
                 S'inscrire à la formation <ArrowRight size={16} />
               </Link>
               <Link to="/formation" className="btn-outline-ink">Découvrir le programme</Link>
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border transition-colors"
+                style={{ borderColor: "color-mix(in oklab, #25D366 50%, transparent)", color: "#1f8a4c" }}
+              >
+                <MessageCircle size={16} /> WhatsApp
+              </a>
             </div>
             <div className="mt-12 grid grid-cols-3 max-w-md gap-6 border-t border-border pt-8">
               <Stat n="6" label="mois de formation" />
@@ -59,6 +69,31 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ACADEMY INTRODUCTION */}
+      <Section eyebrow="L'académie" title="Une académie pensée pour le métier" intro="Lions Academy forme à l'architecture d'intérieur et à la décoration avec une pédagogie exigeante, à distance, fondée sur la pratique et la culture du projet.">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <p className="text-base text-muted-foreground leading-relaxed">
+              Notre approche allie maîtrise des logiciels professionnels, culture architecturale et ateliers pratiques mensuels. Chaque élève est suivi individuellement, du premier plan jusqu'au projet de fin de formation.
+            </p>
+            <ul className="mt-6 space-y-2.5 text-sm">
+              {["Pédagogie 100% à distance", "Suivi personnalisé et corrections individuelles", "Projet de fin de formation encadré"].map((t) => (
+                <li key={t} className="flex gap-3">
+                  <span className="mt-2 inline-block w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--gold)" }} />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <Link to="/academie" className="btn-outline-ink">Découvrir l'académie</Link>
+            </div>
+          </div>
+          <div className="order-1 lg:order-2 rounded-3xl overflow-hidden border border-border" style={{ boxShadow: "var(--shadow-soft)" }}>
+            <img src={academyImg} alt="L'académie Lions Academy" loading="lazy" width={1024} height={1024} className="w-full h-auto" />
+          </div>
+        </div>
+      </Section>
 
       {/* PRINCIPES */}
       <Section eyebrow="Notre approche" title="Les principes de l'académie" intro="Six engagements pédagogiques qui font la différence Lions Academy.">
@@ -104,6 +139,29 @@ function HomePage() {
               <Link to="/programme" className="btn-outline-ink">Programme & calendrier</Link>
             </div>
           </div>
+        </div>
+      </Section>
+
+      {/* PROGRAM PREVIEW */}
+      <Section eyebrow="Programme" title="6 mois, une progression claire" intro="Un parcours structuré, mois après mois, des fondations à la soutenance du projet final.">
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PROGRAM.map((m) => (
+            <li key={m.month} className="card-elegant">
+              <span className="eyebrow">{m.month}</span>
+              <h3 className="mt-3 font-display text-xl">{m.title}</h3>
+              <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+                {m.items.map((it) => (
+                  <li key={it} className="flex gap-2">
+                    <span className="mt-2 inline-block w-1 h-1 rounded-full shrink-0" style={{ background: "var(--gold)" }} />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-10">
+          <Link to="/programme" className="btn-outline-ink">Voir le programme complet</Link>
         </div>
       </Section>
 
