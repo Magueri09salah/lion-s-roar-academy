@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Compass, GraduationCap, Layers, MessageCircle, Palette } from "lucide-react";
+import { ArrowRight, Award, Compass, GraduationCap, Layers, MessageCircle, Palette, Shield, Shapes } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import academyImg from "@/assets/project-2.jpg";
 import { Section } from "@/components/site/Section";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const PRINCIPLE_ICONS = [GraduationCap, Compass, Layers, Palette, Award, MessageCircle];
+const PRINCIPLE_ICONS = [GraduationCap, Compass, Layers, Palette, Award, Shapes, Shield, MessageCircle];
 
 function HomePage() {
   const formation = FORMATIONS[0];
@@ -99,7 +99,7 @@ function HomePage() {
       <Section eyebrow="Notre approche" title="Les principes de l'académie" intro="Six engagements pédagogiques qui font la différence Lions Academy.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PRINCIPLES.map((p, i) => {
-            const Icon = PRINCIPLE_ICONS[i];
+            const Icon = PRINCIPLE_ICONS[i] ?? Award;
             return (
               <article key={p.title} className="card-elegant group">
                 <div className="grid place-items-center w-12 h-12 rounded-xl text-ink" style={{ background: "color-mix(in oklab, var(--gold) 25%, transparent)" }}>
