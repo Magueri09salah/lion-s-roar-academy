@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Check, MessageCircle } from "lucide-react";
+import { Check, MessageCircle, FileText, Upload, X } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { FORMATIONS } from "@/lib/data";
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/inscription")({
 
 function Inscription() {
   const [sent, setSent] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
   return (
     <>
       <PageHero eyebrow="Inscription" title="Rejoignez la prochaine promotion" intro="Remplissez le formulaire ci-dessous : notre équipe vous recontacte sous 48h pour confirmer votre place." />
@@ -54,6 +55,49 @@ function Inscription() {
                   <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">Message (optionnel)</label>
                   <textarea name="message" rows={4} className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                 </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                    Documents à fournir (image, CIN, CV…)
+                  </label>
+                  <label
+                    htmlFor="documents"
+                    className="flex flex-col items-center justify-center gap-2 w-full rounded-xl border border-dashed border-border bg-card px-4 py-8 text-sm text-muted-foreground cursor-pointer hover:bg-muted/40 transition-colors"
+                  >
+                    <Upload size={20} style={{ color: "var(--gold)" }} />
+                    <span><strong className="text-foreground">Cliquez pour téléverser</strong> ou glissez vos fichiers</span>
+                    <span className="text-xs">Images, PDF, documents — plusieurs fichiers acceptés</span>
+                  </label>
+                  <input
+                    id="documents"
+                    name="documents"
+                    type="file"
+                    multiple
+                    accept="image/*,application/pdf,.doc,.docx"
+                    className="sr-only"
+                    onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
+                  />
+                  {files.length > 0 && (
+                    <ul className="mt-3 space-y-2">
+                      {files.map((f, idx) => (
+                        <li key={idx} className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-3 py-2 text-xs">
+                          <span className="flex items-center gap-2 truncate">
+                            <FileText size={14} style={{ color: "var(--gold)" }} />
+                            <span className="truncate">{f.name}</span>
+                            <span className="text-muted-foreground">({(f.size / 1024).toFixed(0)} Ko)</span>
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setFiles((prev) => prev.filter((_, i) => i !== idx))}
+                            className="text-muted-foreground hover:text-foreground"
+                            aria-label="Retirer le fichier"
+                          >
+                            <X size={14} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <label className="flex items-start gap-3 text-xs text-muted-foreground">
                   <input type="checkbox" required className="mt-1" />
                   J'accepte la <a href="/confidentialite" className="underline">politique de confidentialité</a> et que mes informations soient utilisées pour traiter ma demande d'inscription.
@@ -86,6 +130,23 @@ function Inscription() {
               <p className="mt-2 text-sm text-muted-foreground">Contactez-nous directement sur WhatsApp pour une réponse immédiate.</p>
             </div>
             <CertificationNotice />
+            <div className="card-elegant">
+              <h3 className="font-display text-xl flex items-center gap-2">
+                <FileText size={18} style={{ color: "var(--gold)" }} />
+                Documents à fournir
+              </h3>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {["Photo / image personnelle", "Copie de la CIN", "CV (optionnel)"].map((d) => (
+                  <li key={d} className="flex gap-2">
+                    <Check size={16} style={{ color: "var(--gold)" }} className="mt-0.5 shrink-0" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-xs text-muted-foreground">
+                À téléverser directement dans le formulaire ou à envoyer via WhatsApp.
+              </p>
+            </div>
           </aside>
         </div>
       </Section>
