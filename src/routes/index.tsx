@@ -252,5 +252,5 @@ const COLLABORATEURS = [
   "Casa Design",
   "Maison Ivoire",
   "Forme & Espace",
-  "Архи Lab",
+  "Archi Lab",
 ];
