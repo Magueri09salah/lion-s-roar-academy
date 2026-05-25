@@ -185,6 +185,25 @@ function HomePage() {
         </div>
       </Section>
 
+      {/* COLLABORATEURS */}
+      <Section eyebrow="Partenaires" title="Nos collaborateurs" intro="Ils nous accompagnent dans la formation et l'accompagnement de nos élèves.">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {COLLABORATEURS.map((c) => (
+            <div
+              key={c}
+              className="flex items-center justify-center rounded-2xl border border-border bg-card px-4 py-8 transition-all hover:border-[color:var(--gold)] hover:shadow-sm"
+            >
+              <span
+                className="font-display text-lg sm:text-xl tracking-wide text-center"
+                style={{ color: "var(--ink)", opacity: 0.75 }}
+              >
+                {c}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       {/* CTA */}
       <section className="pb-24">
         <div className="container-page">
@@ -226,3 +245,12 @@ function Pill({ children }: { children: React.ReactNode }) {
     </span>
   );
 }
+
+const COLLABORATEURS = [
+  "Atelier Nord",
+  "Studio Médina",
+  "Casa Design",
+  "Maison Ivoire",
+  "Forme & Espace",
+  "Архи Lab",
+];
