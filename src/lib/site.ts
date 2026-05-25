@@ -5,7 +5,7 @@ export const SITE = {
   whatsapp: "212600000000",
   whatsappMessage: "Bonjour Lions Academy, je souhaite avoir plus d'informations sur la formation.",
   email: "contact@lionsacademy.ma",
-  city: "Casablanca, Maroc",
+  city: "Marrakech, Maroc",
   url: "https://lionsacademy.ma",
   social: {
     instagram: "https://instagram.com/lionsacademy",
@@ -20,7 +20,7 @@ export const NAV = [
   { to: "/academie", label: "Académie" },
   { to: "/formation", label: "Formation" },
   { to: "/programme", label: "Programme" },
-  { to: "/realisations", label: "Réalisations" },
+  { to: "/realisations", label: "Réalisations des élèves" },
   { to: "/formateurs", label: "Formateurs" },
   { to: "/contact", label: "Contact" },
 ] as const;

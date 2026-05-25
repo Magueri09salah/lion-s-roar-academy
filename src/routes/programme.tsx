@@ -34,11 +34,11 @@ function Programme() {
                 <p className="mt-3 text-sm text-muted-foreground">{m.objective}</p>
                 <div className="mt-5 grid sm:grid-cols-3 gap-4 text-sm">
                   <div>
-                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Axe principal</div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Cours théorique</div>
                     <div className="mt-1">{m.axis}</div>
                   </div>
                   <div>
-                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Contenu</div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Atelier</div>
                     <ul className="mt-1 text-muted-foreground space-y-0.5">
                       {m.items.map((it) => <li key={it}>· {it}</li>)}
                     </ul>

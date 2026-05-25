@@ -47,21 +47,21 @@ export const FORMATIONS = [
 ];
 
 export const PROGRAM = [
-  { month: "Mois 1", title: "Bases de l'architecture d'intérieur", axis: "Bases de l'architecture d'intérieur", objective: "Comprendre l'espace, les usages et les bases du design.", deliverable: "Exercice 1", items: ["Introduction au métier", "Bases du dessin technique", "Lecture des espaces"] },
+  { month: "Mois 1", title: "Bases de l'architecture d'intérieur", axis: "Bases de l'architecture d'intérieur", objective: "Comprendre l'espace, les usages et les bases du design.", deliverable: "Exercice 1", items: [] },
   { month: "Mois 2", title: "Plans 2D et logiciels", axis: "Plans 2D et logiciels", objective: "Lire et produire des plans simples.", deliverable: "Exercice 2", items: ["AutoCAD : prise en main", "Cotations et coupes", "Plan d'aménagement"] },
   { month: "Mois 3", title: "Modélisation 3D", axis: "Modélisation 3D", objective: "Créer un espace intérieur en volume.", deliverable: "Exercice 3", items: ["Initiation SketchUp", "Volumes et matériaux", "Modélisation d'une pièce"] },
   { month: "Mois 4", title: "Théorie, styles et ambiance", axis: "Théorie, styles et ambiance", objective: "Construire un concept cohérent.", deliverable: "Exercice 4", items: ["Styles décoratifs", "Moodboards et palettes", "Symbolique des formes"] },
   { month: "Mois 5", title: "Infographie et présentation", axis: "Infographie et présentation", objective: "Présenter un projet professionnellement.", deliverable: "Exercice 5", items: ["Photoshop & Illustrator", "Planches de présentation", "Storytelling visuel"] },
-  { month: "Mois 6", title: "Atelier final", axis: "Atelier final", objective: "Réaliser un projet complet.", deliverable: "Projet de Fin de Formation", items: ["Conception complète", "Plans, 3D et moodboard", "Soutenance & certification"] },
+  { month: "Mois 6", title: "Atelier final", axis: "Préparations aux examens avec documents autorisés", objective: "Réaliser un projet complet.", deliverable: "Projet de Fin de Formation", items: ["Conception complète", "Plans, 3D et moodboard", "Soutenance & certification"] },
 ];
 
 export const PROJECT_CATEGORIES = [
   "Tous",
   "Plans 2D",
   "Modélisations 3D",
-  "Rendus",
+  "Plan thématique",
   "Moodboards",
-  "Planches de présentation",
+  // "Planches de présentation",
   "Projet de Fin de Formation",
 ] as const;
 
@@ -83,7 +83,7 @@ export const TRAINERS = [
     bio: "10 ans d'expérience en agence, spécialiste des espaces résidentiels haut de gamme et de la conception sur-mesure.",
     experience: "10 ans",
     modules: ["Bases de l'architecture d'intérieur", "Atelier de conception", "Projet de Fin de Formation"],
-    software: ["AutoCAD", "SketchUp"],
+    software: ["AutoCAD", "ArchiCAD","Plan théchnique"],
     initials: "KB",
     photo: null as string | null,
     socials: { instagram: "https://instagram.com/", linkedin: "https://linkedin.com/" },

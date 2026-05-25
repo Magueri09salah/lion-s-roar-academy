@@ -21,7 +21,7 @@ function Contact() {
   const [sent, setSent] = useState(false);
   return (
     <>
-      <PageHero eyebrow="Nous contacter" title="Discutons de votre projet." intro="Notre équipe est là pour répondre à vos questions sur la formation, le programme ou l'inscription." />
+      <PageHero eyebrow="Nous contacter" title="Quel est votre demande ?" intro="Notre équipe est là pour répondre à vos questions sur la formation, le programme ou l'inscription." />
       <Section>
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="space-y-4">

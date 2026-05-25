@@ -9,7 +9,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5">
             <span className="grid place-items-center w-9 h-9 rounded-full bg-ivory text-ink font-display text-base">L</span>
-            <span className="font-display text-2xl">Lions Academy</span>
+            <span className="font-display text-2xl">LIONS ACADEMY</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-ivory/70 leading-relaxed">
             Une académie de formation à distance dédiée à l'architecture d'intérieur et à la décoration. Apprendre, concevoir, présenter — avec méthode.
