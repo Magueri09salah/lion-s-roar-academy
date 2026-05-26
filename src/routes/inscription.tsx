@@ -57,7 +57,7 @@ function Inscription() {
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                    Documents à fournir (image, CIN, CV…)
+                    Documents à fournir (image, CIN)
                   </label>
                   <label
                     htmlFor="documents"
@@ -136,7 +136,7 @@ function Inscription() {
                 Documents à fournir
               </h3>
               <ul className="mt-4 space-y-2.5 text-sm">
-                {["Photo / image personnelle", "Copie de la CIN", "CV (optionnel)"].map((d) => (
+                {["Photo / image personnelle", "Copie de la CIN"].map((d) => (
                   <li key={d} className="flex gap-2">
                     <Check size={16} style={{ color: "var(--gold)" }} className="mt-0.5 shrink-0" />
                     {d}

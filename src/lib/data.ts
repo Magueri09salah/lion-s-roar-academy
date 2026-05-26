@@ -59,7 +59,7 @@ export const PROJECT_CATEGORIES = [
   "Tous",
   "Plans 2D",
   "Modélisations 3D",
-  "Plan thématique",
+  "Plan théchnique",
   "Moodboards",
   // "Planches de présentation",
   "Projet de Fin de Formation",
