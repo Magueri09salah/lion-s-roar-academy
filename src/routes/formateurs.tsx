@@ -1,10 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { Instagram, Linkedin } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { TRAINERS } from "@/lib/data";
+import { CardGridSkeleton, ErrorState } from "@/components/site/States";
+import { fetchTrainers } from "@/lib/api";
 
 export const Route = createFileRoute("/formateurs")({
+  loader: () => fetchTrainers(),
   head: () => ({
     meta: [
       { title: "Formateurs — Lions Academy" },
@@ -13,16 +15,29 @@ export const Route = createFileRoute("/formateurs")({
       { property: "og:description", content: "Une équipe pédagogique experte en architecture d'intérieur et design 3D." },
     ],
   }),
+  pendingComponent: () => (
+    <Section><CardGridSkeleton count={3} /></Section>
+  ),
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <Section>
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </Section>
+    );
+  },
   component: Formateurs,
 });
 
 function Formateurs() {
+  const trainers = Route.useLoaderData();
+
   return (
     <>
       <PageHero eyebrow="Équipe pédagogique" title="Des professionnels qui transmettent." intro="Architectes, designers et enseignants : nos formateurs allient expérience de terrain et passion de la pédagogie." />
       <Section>
         <div className="grid md:grid-cols-3 gap-6">
-          {TRAINERS.map((t) => (
+          {trainers.map((t) => (
             <article key={t.id} className="card-elegant flex flex-col">
               <div className="flex items-center gap-4">
                 {t.photo ? (

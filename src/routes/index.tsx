@@ -1,13 +1,24 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { ArrowRight, Award, Compass, GraduationCap, Layers, MessageCircle, Palette, Shield, Shapes } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import academyImg from "@/assets/project-2.jpg";
 import { Section } from "@/components/site/Section";
-import { PRINCIPLES, FORMATIONS, PROJECTS, PROGRAM } from "@/lib/data";
+import { CardGridSkeleton, ErrorState } from "@/components/site/States";
+import { fetchFormations, fetchPrinciples, fetchProgram, fetchProjects } from "@/lib/api";
 import { whatsappUrl } from "@/lib/site";
 import { CertificationNotice } from "@/components/site/CertificationNotice";
 
 export const Route = createFileRoute("/")({
+  // Pulls every section's content from the live API in parallel.
+  loader: async () => {
+    const [principles, formations, projects, program] = await Promise.all([
+      fetchPrinciples(),
+      fetchFormations(),
+      fetchProjects(),
+      fetchProgram(),
+    ]);
+    return { principles, formations, projects, program };
+  },
   head: () => ({
     meta: [
       { title: "Lions Academy – Formation Architecture d'intérieur" },
@@ -16,13 +27,35 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Formation professionnelle à distance en architecture et décoration." },
     ],
   }),
+  pendingComponent: () => (
+    <Section><CardGridSkeleton count={6} /></Section>
+  ),
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <Section>
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </Section>
+    );
+  },
   component: HomePage,
 });
 
 const PRINCIPLE_ICONS = [GraduationCap, Compass, Layers, Palette, Award, Shapes, Shield, MessageCircle];
 
 function HomePage() {
-  const formation = FORMATIONS[0];
+  const { principles, formations, projects, program } = Route.useLoaderData();
+  const formation = formations[0];
+
+  // Defensive empty-state: if the seeder didn't run, we still render the
+  // page chrome instead of crashing on `formations[0]`.
+  if (!formation) {
+    return (
+      <Section>
+        <ErrorState message="Aucune formation disponible. Lancez le seeder pour initialiser le contenu." />
+      </Section>
+    );
+  }
   return (
     <>
       {/* HERO */}
@@ -98,7 +131,7 @@ function HomePage() {
       {/* PRINCIPES */}
       <Section eyebrow="Notre approche" title="Les principes de l'académie" intro="Six engagements pédagogiques qui font la différence Lions Academy.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PRINCIPLES.map((p, i) => {
+          {principles.map((p, i) => {
             const Icon = PRINCIPLE_ICONS[i] ?? Award;
             return (
               <article key={p.title} className="card-elegant group">
@@ -117,7 +150,7 @@ function HomePage() {
       <Section eyebrow="Formation disponible" title="Architecture d'intérieur & décoration" intro="6 mois pour acquérir les fondations techniques, culturelles et professionnelles du métier.">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div className="rounded-3xl overflow-hidden border border-border">
-            <img src={formation.cover} alt={formation.title} loading="lazy" width={1024} height={1024} className="w-full h-auto" />
+            <img src={formation.cover ?? undefined} alt={formation.title} loading="lazy" width={1024} height={1024} className="w-full h-auto" />
           </div>
           <div>
             <div className="flex flex-wrap gap-2">
@@ -145,7 +178,7 @@ function HomePage() {
       {/* PROGRAM PREVIEW */}
       <Section eyebrow="Programme" title="6 mois, une progression claire" intro="Un parcours structuré, mois après mois, des fondations à la soutenance du projet final.">
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PROGRAM.map((m) => (
+          {program.map((m) => (
             <li key={m.month} className="card-elegant">
               <span className="eyebrow">{m.month}</span>
               <h3 className="mt-3 font-display text-xl">{m.title}</h3>
@@ -168,10 +201,10 @@ function HomePage() {
       {/* RÉALISATIONS */}
       <Section eyebrow="Réalisations" title="Travaux de nos élèves" intro="Une sélection de rendus, moodboards et projets réalisés pendant la formation.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {PROJECTS.slice(0, 4).map((p) => (
+          {projects.slice(0, 4).map((p) => (
             <Link key={p.id} to="/realisations" className="group block">
               <div className="rounded-2xl overflow-hidden border border-border aspect-[4/5]">
-                <img src={p.cover} alt={p.title} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={p.cover ?? undefined} alt={p.title} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="mt-3">
                 <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{p.category}</span>

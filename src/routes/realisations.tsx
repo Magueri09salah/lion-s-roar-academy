@@ -1,11 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { X } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { PROJECTS, PROJECT_CATEGORIES } from "@/lib/data";
+import { CardGridSkeleton, ErrorState } from "@/components/site/States";
+import { fetchProjects, type Project } from "@/lib/api";
+import { PROJECT_CATEGORIES } from "@/lib/data";
 
 export const Route = createFileRoute("/realisations")({
+  // Fetch everything once; categories are filtered client-side so toggling
+  // a chip doesn't re-hit the API. The backend already supports
+  // `?category=` if we want to switch to server-side filtering later.
+  loader: () => fetchProjects(),
   head: () => ({
     meta: [
       { title: "Réalisations des élèves — Lions Academy" },
@@ -14,13 +20,26 @@ export const Route = createFileRoute("/realisations")({
       { property: "og:description", content: "Découvrez les travaux de nos élèves : rendus 3D, moodboards et projets de fin de formation." },
     ],
   }),
+  pendingComponent: () => (
+    <Section><CardGridSkeleton count={6} /></Section>
+  ),
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <Section>
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </Section>
+    );
+  },
   component: Realisations,
 });
 
 function Realisations() {
-  const [filter, setFilter] = useState("Tous");
-  const [active, setActive] = useState<typeof PROJECTS[number] | null>(null);
-  const list = filter === "Tous" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+  const projects = Route.useLoaderData();
+  const [filter, setFilter] = useState<string>("Tous");
+  const [active, setActive] = useState<Project | null>(null);
+
+  const list = filter === "Tous" ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <>
@@ -37,7 +56,7 @@ function Realisations() {
           {list.map((p) => (
             <button key={p.id} onClick={() => setActive(p)} className="text-left group block">
               <div className="rounded-2xl overflow-hidden border border-border aspect-[4/5]">
-                <img src={p.cover} alt={p.title} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={p.cover ?? undefined} alt={p.title} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="mt-3">
                 <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{p.category} · {p.student}</span>
@@ -55,7 +74,7 @@ function Realisations() {
             <button onClick={() => setActive(null)} aria-label="Fermer" className="absolute top-4 right-4 z-10 grid place-items-center w-10 h-10 rounded-full bg-background/90 border border-border">
               <X size={18} />
             </button>
-            <img src={active.cover} alt={active.title} className="w-full h-auto max-h-[60vh] object-cover" />
+            <img src={active.cover ?? undefined} alt={active.title} className="w-full h-auto max-h-[60vh] object-cover" />
             <div className="p-8">
               <span className="eyebrow">{active.category}</span>
               <h2 className="mt-3 font-display text-2xl">{active.title}</h2>

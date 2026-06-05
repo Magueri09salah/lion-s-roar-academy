@@ -1,9 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { PROGRAM } from "@/lib/data";
+import { CardGridSkeleton, ErrorState } from "@/components/site/States";
+import { fetchProgram } from "@/lib/api";
 
 export const Route = createFileRoute("/programme")({
+  loader: () => fetchProgram(),
   head: () => ({
     meta: [
       { title: "Programme & Calendrier — Lions Academy" },
@@ -12,16 +14,29 @@ export const Route = createFileRoute("/programme")({
       { property: "og:description", content: "6 mois structurés pour apprendre l'architecture d'intérieur." },
     ],
   }),
+  pendingComponent: () => (
+    <Section><CardGridSkeleton count={6} /></Section>
+  ),
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <Section>
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </Section>
+    );
+  },
   component: Programme,
 });
 
 function Programme() {
+  const program = Route.useLoaderData();
+
   return (
     <>
       <PageHero eyebrow="Programme · 6 mois" title="Un calendrier clair, mois après mois." intro="Chaque mois apporte un bloc thématique avec un rendu corrigé. Le tout converge vers le Projet de Fin de Formation." />
       <Section>
         <ol className="relative border-l-2 border-border space-y-10 pl-6 sm:pl-10">
-          {PROGRAM.map((m, i) => (
+          {program.map((m, i) => (
             <li key={m.month} className="relative">
               <span className="absolute -left-[34px] sm:-left-[50px] top-1 grid place-items-center w-9 h-9 rounded-full text-xs font-medium" style={{ background: "var(--gradient-gold)", color: "var(--ink)" }}>
                 {i + 1}

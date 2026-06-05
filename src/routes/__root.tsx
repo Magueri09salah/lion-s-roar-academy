@@ -4,9 +4,11 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 import { Header } from "@/components/site/Header";
@@ -82,16 +84,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { location } = useRouterState();
+  // Hide the public site chrome (Header / Footer / floating WhatsApp button)
+  // for any /admin/* route. The back-office has its own shell (AdminShell).
+  const isAdminRoute = location.pathname === "/admin" || location.pathname.startsWith("/admin/");
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </div>
+      {isAdminRoute ? (
+        <Outlet />
+      ) : (
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </div>
+      )}
+      <Toaster richColors closeButton position="top-right" />
     </QueryClientProvider>
   );
 }

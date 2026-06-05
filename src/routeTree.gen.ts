@@ -17,9 +17,31 @@ import { Route as FormationRouteImport } from './routes/formation'
 import { Route as FormateursRouteImport } from './routes/formateurs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AcademieRouteImport } from './routes/academie'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as FormationSlugRouteImport } from './routes/formation.$slug'
+import { Route as AdminTrainersRouteImport } from './routes/admin.trainers'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
+import { Route as AdminRegistrationsRouteImport } from './routes/admin.registrations'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminProgrammeRouteImport } from './routes/admin.programme'
+import { Route as AdminPrinciplesRouteImport } from './routes/admin.principles'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminFormationsRouteImport } from './routes/admin.formations'
+import { Route as AdminForgotPasswordRouteImport } from './routes/admin.forgot-password'
+import { Route as AdminAccountRouteImport } from './routes/admin.account'
+import { Route as AdminTrainersIndexRouteImport } from './routes/admin.trainers.index'
+import { Route as AdminRegistrationsIndexRouteImport } from './routes/admin.registrations.index'
+import { Route as AdminProjectsIndexRouteImport } from './routes/admin.projects.index'
+import { Route as AdminProgrammeIndexRouteImport } from './routes/admin.programme.index'
+import { Route as AdminPrinciplesIndexRouteImport } from './routes/admin.principles.index'
+import { Route as AdminMessagesIndexRouteImport } from './routes/admin.messages.index'
+import { Route as AdminFormationsIndexRouteImport } from './routes/admin.formations.index'
+import { Route as AdminRegistrationsIdRouteImport } from './routes/admin.registrations.$id'
+import { Route as AdminMessagesIdRouteImport } from './routes/admin.messages.$id'
 
 const RealisationsRoute = RealisationsRouteImport.update({
   id: '/realisations',
@@ -61,6 +83,11 @@ const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
   path: '/confidentialite',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademieRoute = AcademieRouteImport.update({
   id: '/academie',
   path: '/academie',
@@ -71,15 +98,121 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const FormationSlugRoute = FormationSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => FormationRoute,
 } as any)
+const AdminTrainersRoute = AdminTrainersRouteImport.update({
+  id: '/trainers',
+  path: '/trainers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRegistrationsRoute = AdminRegistrationsRouteImport.update({
+  id: '/registrations',
+  path: '/registrations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProgrammeRoute = AdminProgrammeRouteImport.update({
+  id: '/programme',
+  path: '/programme',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPrinciplesRoute = AdminPrinciplesRouteImport.update({
+  id: '/principles',
+  path: '/principles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFormationsRoute = AdminFormationsRouteImport.update({
+  id: '/formations',
+  path: '/formations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminForgotPasswordRoute = AdminForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAccountRoute = AdminAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTrainersIndexRoute = AdminTrainersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminTrainersRoute,
+} as any)
+const AdminRegistrationsIndexRoute = AdminRegistrationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRegistrationsRoute,
+} as any)
+const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminProjectsRoute,
+} as any)
+const AdminProgrammeIndexRoute = AdminProgrammeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminProgrammeRoute,
+} as any)
+const AdminPrinciplesIndexRoute = AdminPrinciplesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminPrinciplesRoute,
+} as any)
+const AdminMessagesIndexRoute = AdminMessagesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminMessagesRoute,
+} as any)
+const AdminFormationsIndexRoute = AdminFormationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminFormationsRoute,
+} as any)
+const AdminRegistrationsIdRoute = AdminRegistrationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminRegistrationsRoute,
+} as any)
+const AdminMessagesIdRoute = AdminMessagesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminMessagesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/admin': typeof AdminRouteWithChildren
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/formateurs': typeof FormateursRoute
@@ -88,7 +221,28 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/programme': typeof ProgrammeRoute
   '/realisations': typeof RealisationsRoute
+  '/admin/account': typeof AdminAccountRoute
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/formations': typeof AdminFormationsRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRouteWithChildren
+  '/admin/principles': typeof AdminPrinciplesRouteWithChildren
+  '/admin/programme': typeof AdminProgrammeRouteWithChildren
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/registrations': typeof AdminRegistrationsRouteWithChildren
+  '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/admin/trainers': typeof AdminTrainersRouteWithChildren
   '/formation/$slug': typeof FormationSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/messages/$id': typeof AdminMessagesIdRoute
+  '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/formations/': typeof AdminFormationsIndexRoute
+  '/admin/messages/': typeof AdminMessagesIndexRoute
+  '/admin/principles/': typeof AdminPrinciplesIndexRoute
+  '/admin/programme/': typeof AdminProgrammeIndexRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/registrations/': typeof AdminRegistrationsIndexRoute
+  '/admin/trainers/': typeof AdminTrainersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,12 +255,27 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/programme': typeof ProgrammeRoute
   '/realisations': typeof RealisationsRoute
+  '/admin/account': typeof AdminAccountRoute
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/formation/$slug': typeof FormationSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/messages/$id': typeof AdminMessagesIdRoute
+  '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/formations': typeof AdminFormationsIndexRoute
+  '/admin/messages': typeof AdminMessagesIndexRoute
+  '/admin/principles': typeof AdminPrinciplesIndexRoute
+  '/admin/programme': typeof AdminProgrammeIndexRoute
+  '/admin/projects': typeof AdminProjectsIndexRoute
+  '/admin/registrations': typeof AdminRegistrationsIndexRoute
+  '/admin/trainers': typeof AdminTrainersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/admin': typeof AdminRouteWithChildren
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/formateurs': typeof FormateursRoute
@@ -115,13 +284,35 @@ export interface FileRoutesById {
   '/mentions-legales': typeof MentionsLegalesRoute
   '/programme': typeof ProgrammeRoute
   '/realisations': typeof RealisationsRoute
+  '/admin/account': typeof AdminAccountRoute
+  '/admin/forgot-password': typeof AdminForgotPasswordRoute
+  '/admin/formations': typeof AdminFormationsRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRouteWithChildren
+  '/admin/principles': typeof AdminPrinciplesRouteWithChildren
+  '/admin/programme': typeof AdminProgrammeRouteWithChildren
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/registrations': typeof AdminRegistrationsRouteWithChildren
+  '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/admin/trainers': typeof AdminTrainersRouteWithChildren
   '/formation/$slug': typeof FormationSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/messages/$id': typeof AdminMessagesIdRoute
+  '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/formations/': typeof AdminFormationsIndexRoute
+  '/admin/messages/': typeof AdminMessagesIndexRoute
+  '/admin/principles/': typeof AdminPrinciplesIndexRoute
+  '/admin/programme/': typeof AdminProgrammeIndexRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/registrations/': typeof AdminRegistrationsIndexRoute
+  '/admin/trainers/': typeof AdminTrainersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/academie'
+    | '/admin'
     | '/confidentialite'
     | '/contact'
     | '/formateurs'
@@ -130,7 +321,28 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/programme'
     | '/realisations'
+    | '/admin/account'
+    | '/admin/forgot-password'
+    | '/admin/formations'
+    | '/admin/login'
+    | '/admin/messages'
+    | '/admin/principles'
+    | '/admin/programme'
+    | '/admin/projects'
+    | '/admin/registrations'
+    | '/admin/reset-password'
+    | '/admin/trainers'
     | '/formation/$slug'
+    | '/admin/'
+    | '/admin/messages/$id'
+    | '/admin/registrations/$id'
+    | '/admin/formations/'
+    | '/admin/messages/'
+    | '/admin/principles/'
+    | '/admin/programme/'
+    | '/admin/projects/'
+    | '/admin/registrations/'
+    | '/admin/trainers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -143,11 +355,26 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/programme'
     | '/realisations'
+    | '/admin/account'
+    | '/admin/forgot-password'
+    | '/admin/login'
+    | '/admin/reset-password'
     | '/formation/$slug'
+    | '/admin'
+    | '/admin/messages/$id'
+    | '/admin/registrations/$id'
+    | '/admin/formations'
+    | '/admin/messages'
+    | '/admin/principles'
+    | '/admin/programme'
+    | '/admin/projects'
+    | '/admin/registrations'
+    | '/admin/trainers'
   id:
     | '__root__'
     | '/'
     | '/academie'
+    | '/admin'
     | '/confidentialite'
     | '/contact'
     | '/formateurs'
@@ -156,12 +383,34 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/programme'
     | '/realisations'
+    | '/admin/account'
+    | '/admin/forgot-password'
+    | '/admin/formations'
+    | '/admin/login'
+    | '/admin/messages'
+    | '/admin/principles'
+    | '/admin/programme'
+    | '/admin/projects'
+    | '/admin/registrations'
+    | '/admin/reset-password'
+    | '/admin/trainers'
     | '/formation/$slug'
+    | '/admin/'
+    | '/admin/messages/$id'
+    | '/admin/registrations/$id'
+    | '/admin/formations/'
+    | '/admin/messages/'
+    | '/admin/principles/'
+    | '/admin/programme/'
+    | '/admin/projects/'
+    | '/admin/registrations/'
+    | '/admin/trainers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademieRoute: typeof AcademieRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
   FormateursRoute: typeof FormateursRoute
@@ -230,6 +479,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfidentialiteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academie': {
       id: '/academie'
       path: '/academie'
@@ -244,6 +500,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/formation/$slug': {
       id: '/formation/$slug'
       path: '/$slug'
@@ -251,8 +514,267 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FormationSlugRouteImport
       parentRoute: typeof FormationRoute
     }
+    '/admin/trainers': {
+      id: '/admin/trainers'
+      path: '/trainers'
+      fullPath: '/admin/trainers'
+      preLoaderRoute: typeof AdminTrainersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reset-password': {
+      id: '/admin/reset-password'
+      path: '/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/registrations': {
+      id: '/admin/registrations'
+      path: '/registrations'
+      fullPath: '/admin/registrations'
+      preLoaderRoute: typeof AdminRegistrationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/programme': {
+      id: '/admin/programme'
+      path: '/programme'
+      fullPath: '/admin/programme'
+      preLoaderRoute: typeof AdminProgrammeRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/principles': {
+      id: '/admin/principles'
+      path: '/principles'
+      fullPath: '/admin/principles'
+      preLoaderRoute: typeof AdminPrinciplesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/formations': {
+      id: '/admin/formations'
+      path: '/formations'
+      fullPath: '/admin/formations'
+      preLoaderRoute: typeof AdminFormationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/forgot-password': {
+      id: '/admin/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/admin/forgot-password'
+      preLoaderRoute: typeof AdminForgotPasswordRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/account': {
+      id: '/admin/account'
+      path: '/account'
+      fullPath: '/admin/account'
+      preLoaderRoute: typeof AdminAccountRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/trainers/': {
+      id: '/admin/trainers/'
+      path: '/'
+      fullPath: '/admin/trainers/'
+      preLoaderRoute: typeof AdminTrainersIndexRouteImport
+      parentRoute: typeof AdminTrainersRoute
+    }
+    '/admin/registrations/': {
+      id: '/admin/registrations/'
+      path: '/'
+      fullPath: '/admin/registrations/'
+      preLoaderRoute: typeof AdminRegistrationsIndexRouteImport
+      parentRoute: typeof AdminRegistrationsRoute
+    }
+    '/admin/projects/': {
+      id: '/admin/projects/'
+      path: '/'
+      fullPath: '/admin/projects/'
+      preLoaderRoute: typeof AdminProjectsIndexRouteImport
+      parentRoute: typeof AdminProjectsRoute
+    }
+    '/admin/programme/': {
+      id: '/admin/programme/'
+      path: '/'
+      fullPath: '/admin/programme/'
+      preLoaderRoute: typeof AdminProgrammeIndexRouteImport
+      parentRoute: typeof AdminProgrammeRoute
+    }
+    '/admin/principles/': {
+      id: '/admin/principles/'
+      path: '/'
+      fullPath: '/admin/principles/'
+      preLoaderRoute: typeof AdminPrinciplesIndexRouteImport
+      parentRoute: typeof AdminPrinciplesRoute
+    }
+    '/admin/messages/': {
+      id: '/admin/messages/'
+      path: '/'
+      fullPath: '/admin/messages/'
+      preLoaderRoute: typeof AdminMessagesIndexRouteImport
+      parentRoute: typeof AdminMessagesRoute
+    }
+    '/admin/formations/': {
+      id: '/admin/formations/'
+      path: '/'
+      fullPath: '/admin/formations/'
+      preLoaderRoute: typeof AdminFormationsIndexRouteImport
+      parentRoute: typeof AdminFormationsRoute
+    }
+    '/admin/registrations/$id': {
+      id: '/admin/registrations/$id'
+      path: '/$id'
+      fullPath: '/admin/registrations/$id'
+      preLoaderRoute: typeof AdminRegistrationsIdRouteImport
+      parentRoute: typeof AdminRegistrationsRoute
+    }
+    '/admin/messages/$id': {
+      id: '/admin/messages/$id'
+      path: '/$id'
+      fullPath: '/admin/messages/$id'
+      preLoaderRoute: typeof AdminMessagesIdRouteImport
+      parentRoute: typeof AdminMessagesRoute
+    }
   }
 }
+
+interface AdminFormationsRouteChildren {
+  AdminFormationsIndexRoute: typeof AdminFormationsIndexRoute
+}
+
+const AdminFormationsRouteChildren: AdminFormationsRouteChildren = {
+  AdminFormationsIndexRoute: AdminFormationsIndexRoute,
+}
+
+const AdminFormationsRouteWithChildren = AdminFormationsRoute._addFileChildren(
+  AdminFormationsRouteChildren,
+)
+
+interface AdminMessagesRouteChildren {
+  AdminMessagesIdRoute: typeof AdminMessagesIdRoute
+  AdminMessagesIndexRoute: typeof AdminMessagesIndexRoute
+}
+
+const AdminMessagesRouteChildren: AdminMessagesRouteChildren = {
+  AdminMessagesIdRoute: AdminMessagesIdRoute,
+  AdminMessagesIndexRoute: AdminMessagesIndexRoute,
+}
+
+const AdminMessagesRouteWithChildren = AdminMessagesRoute._addFileChildren(
+  AdminMessagesRouteChildren,
+)
+
+interface AdminPrinciplesRouteChildren {
+  AdminPrinciplesIndexRoute: typeof AdminPrinciplesIndexRoute
+}
+
+const AdminPrinciplesRouteChildren: AdminPrinciplesRouteChildren = {
+  AdminPrinciplesIndexRoute: AdminPrinciplesIndexRoute,
+}
+
+const AdminPrinciplesRouteWithChildren = AdminPrinciplesRoute._addFileChildren(
+  AdminPrinciplesRouteChildren,
+)
+
+interface AdminProgrammeRouteChildren {
+  AdminProgrammeIndexRoute: typeof AdminProgrammeIndexRoute
+}
+
+const AdminProgrammeRouteChildren: AdminProgrammeRouteChildren = {
+  AdminProgrammeIndexRoute: AdminProgrammeIndexRoute,
+}
+
+const AdminProgrammeRouteWithChildren = AdminProgrammeRoute._addFileChildren(
+  AdminProgrammeRouteChildren,
+)
+
+interface AdminProjectsRouteChildren {
+  AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
+}
+
+const AdminProjectsRouteChildren: AdminProjectsRouteChildren = {
+  AdminProjectsIndexRoute: AdminProjectsIndexRoute,
+}
+
+const AdminProjectsRouteWithChildren = AdminProjectsRoute._addFileChildren(
+  AdminProjectsRouteChildren,
+)
+
+interface AdminRegistrationsRouteChildren {
+  AdminRegistrationsIdRoute: typeof AdminRegistrationsIdRoute
+  AdminRegistrationsIndexRoute: typeof AdminRegistrationsIndexRoute
+}
+
+const AdminRegistrationsRouteChildren: AdminRegistrationsRouteChildren = {
+  AdminRegistrationsIdRoute: AdminRegistrationsIdRoute,
+  AdminRegistrationsIndexRoute: AdminRegistrationsIndexRoute,
+}
+
+const AdminRegistrationsRouteWithChildren =
+  AdminRegistrationsRoute._addFileChildren(AdminRegistrationsRouteChildren)
+
+interface AdminTrainersRouteChildren {
+  AdminTrainersIndexRoute: typeof AdminTrainersIndexRoute
+}
+
+const AdminTrainersRouteChildren: AdminTrainersRouteChildren = {
+  AdminTrainersIndexRoute: AdminTrainersIndexRoute,
+}
+
+const AdminTrainersRouteWithChildren = AdminTrainersRoute._addFileChildren(
+  AdminTrainersRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminAccountRoute: typeof AdminAccountRoute
+  AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
+  AdminFormationsRoute: typeof AdminFormationsRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMessagesRoute: typeof AdminMessagesRouteWithChildren
+  AdminPrinciplesRoute: typeof AdminPrinciplesRouteWithChildren
+  AdminProgrammeRoute: typeof AdminProgrammeRouteWithChildren
+  AdminProjectsRoute: typeof AdminProjectsRouteWithChildren
+  AdminRegistrationsRoute: typeof AdminRegistrationsRouteWithChildren
+  AdminResetPasswordRoute: typeof AdminResetPasswordRoute
+  AdminTrainersRoute: typeof AdminTrainersRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAccountRoute: AdminAccountRoute,
+  AdminForgotPasswordRoute: AdminForgotPasswordRoute,
+  AdminFormationsRoute: AdminFormationsRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMessagesRoute: AdminMessagesRouteWithChildren,
+  AdminPrinciplesRoute: AdminPrinciplesRouteWithChildren,
+  AdminProgrammeRoute: AdminProgrammeRouteWithChildren,
+  AdminProjectsRoute: AdminProjectsRouteWithChildren,
+  AdminRegistrationsRoute: AdminRegistrationsRouteWithChildren,
+  AdminResetPasswordRoute: AdminResetPasswordRoute,
+  AdminTrainersRoute: AdminTrainersRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface FormationRouteChildren {
   FormationSlugRoute: typeof FormationSlugRoute
@@ -269,6 +791,7 @@ const FormationRouteWithChildren = FormationRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademieRoute: AcademieRoute,
+  AdminRoute: AdminRouteWithChildren,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
   FormateursRoute: FormateursRoute,

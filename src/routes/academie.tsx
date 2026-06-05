@@ -1,9 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { PRINCIPLES } from "@/lib/data";
+import { CardGridSkeleton, ErrorState } from "@/components/site/States";
+import { fetchPrinciples } from "@/lib/api";
 
 export const Route = createFileRoute("/academie")({
+  // Read principles from the live API so admin edits via /admin/principles
+  // are reflected immediately (no redeploy needed).
+  loader: () => fetchPrinciples(),
   head: () => ({
     meta: [
       { title: "L'Académie — Lions Academy" },
@@ -12,10 +16,23 @@ export const Route = createFileRoute("/academie")({
       { property: "og:description", content: "Notre vision pédagogique pour former les futurs architectes d'intérieur." },
     ],
   }),
+  pendingComponent: () => (
+    <Section><CardGridSkeleton count={6} /></Section>
+  ),
+  errorComponent: ({ error, reset }) => {
+    const router = useRouter();
+    return (
+      <Section>
+        <ErrorState message={error.message} onRetry={() => { router.invalidate(); reset(); }} />
+      </Section>
+    );
+  },
   component: Academie,
 });
 
 function Academie() {
+  const principles = Route.useLoaderData();
+
   return (
     <>
       <PageHero
@@ -35,7 +52,7 @@ function Academie() {
       </Section>
       <Section eyebrow="Nos engagements" title="Les principes de l'académie" className="bg-secondary/40">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PRINCIPLES.map((p, i) => (
+          {principles.map((p, i) => (
             <article key={p.title} className="card-elegant">
               <div className="font-display text-3xl" style={{ color: "var(--gold)" }}>0{i + 1}</div>
               <h3 className="mt-3 font-display text-xl">{p.title}</h3>

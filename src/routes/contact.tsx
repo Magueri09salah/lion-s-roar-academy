@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MapPin, Phone, MessageCircle, Check, Instagram, Facebook, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone, MessageCircle, Check, Instagram, Facebook, Youtube, AlertTriangle } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { SITE, whatsappUrl } from "@/lib/site";
@@ -17,8 +17,53 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+  const [topError, setTopError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    setFieldErrors({});
+    setTopError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      phone: (formData.get("phone") as string | null) || null,
+      subject: String(formData.get("subject") ?? ""),
+      message: String(formData.get("message") ?? ""),
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/contact-messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      let body: { success: boolean; error?: { message: string; details?: Record<string, string[]> } } | null = null;
+      try { body = await res.json(); } catch { /* non-JSON response, fall through */ }
+
+      if (!res.ok || !body?.success) {
+        if (body?.error?.details) setFieldErrors(body.error.details);
+        setTopError(body?.error?.message ?? `Erreur du serveur (${res.status}).`);
+        return;
+      }
+
+      setSent(true);
+    } catch {
+      setTopError("Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <>
       <PageHero eyebrow="Nous contacter" title="Quel est votre demande ?" intro="Notre équipe est là pour répondre à vos questions sur la formation, le programme ou l'inscription." />
@@ -46,23 +91,69 @@ function Contact() {
                 </div>
                 <h2 className="mt-5 font-display text-2xl">Message envoyé</h2>
                 <p className="mt-3 text-sm text-muted-foreground">Merci, nous vous répondons sous 48h.</p>
+                <button type="button" onClick={() => setSent(false)} className="btn-outline-ink mt-6">
+                  Envoyer un autre message
+                </button>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="card-elegant space-y-5">
+              <form onSubmit={handleSubmit} className="card-elegant space-y-5">
+                {topError && (
+                  <div
+                    className="flex items-start gap-3 rounded-xl border px-4 py-3 text-sm"
+                    style={{
+                      borderColor: "color-mix(in oklab, var(--terracotta) 50%, transparent)",
+                      background: "color-mix(in oklab, var(--terracotta) 8%, transparent)",
+                      color: "var(--terracotta)",
+                    }}
+                    role="alert"
+                  >
+                    <AlertTriangle size={16} className="mt-0.5 shrink-0" />
+                    <span>{topError}</span>
+                  </div>
+                )}
+
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <input name="name" required placeholder="Nom" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                  <input name="email" required type="email" placeholder="Email" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                  <input name="phone" placeholder="Téléphone" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                  <input name="subject" required placeholder="Sujet" className="rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                  <ContactField name="name" placeholder="Nom" required error={fieldErrors.name?.[0]} />
+                  <ContactField name="email" type="email" placeholder="Email" required error={fieldErrors.email?.[0]} />
+                  <ContactField name="phone" placeholder="Téléphone (optionnel)" error={fieldErrors.phone?.[0]} />
+                  <ContactField name="subject" placeholder="Sujet" required error={fieldErrors.subject?.[0]} />
                 </div>
-                <textarea name="message" required rows={6} placeholder="Votre message" className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                <button type="submit" className="btn-gold">Envoyer le message</button>
+                <div>
+                  <textarea
+                    name="message"
+                    required
+                    rows={6}
+                    placeholder="Votre message"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    style={fieldErrors.message?.[0] ? { borderColor: "var(--terracotta)" } : undefined}
+                  />
+                  {fieldErrors.message?.[0] && <p className="mt-1.5 text-xs" style={{ color: "var(--terracotta)" }}>{fieldErrors.message[0]}</p>}
+                </div>
+                <button type="submit" disabled={submitting} className="btn-gold disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? "Envoi…" : "Envoyer le message"}
+                </button>
               </form>
             )}
           </div>
         </div>
       </Section>
     </>
+  );
+}
+
+function ContactField({ name, placeholder, type = "text", required, error }: { name: string; placeholder: string; type?: string; required?: boolean; error?: string }) {
+  return (
+    <div>
+      <input
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+        style={error ? { borderColor: "var(--terracotta)" } : undefined}
+      />
+      {error && <p className="mt-1.5 text-xs" style={{ color: "var(--terracotta)" }}>{error}</p>}
+    </div>
   );
 }
 
