@@ -17,6 +17,7 @@ import { Route as FormationRouteImport } from './routes/formation'
 import { Route as FormateursRouteImport } from './routes/formateurs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as ConcoursEnaRouteImport } from './routes/concours-ena'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AcademieRouteImport } from './routes/academie'
 import { Route as IndexRouteImport } from './routes/index'
@@ -32,6 +33,7 @@ import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminFormationsRouteImport } from './routes/admin.formations'
 import { Route as AdminForgotPasswordRouteImport } from './routes/admin.forgot-password'
+import { Route as AdminConcoursRouteImport } from './routes/admin.concours'
 import { Route as AdminAccountRouteImport } from './routes/admin.account'
 import { Route as AdminTrainersIndexRouteImport } from './routes/admin.trainers.index'
 import { Route as AdminRegistrationsIndexRouteImport } from './routes/admin.registrations.index'
@@ -40,8 +42,11 @@ import { Route as AdminProgrammeIndexRouteImport } from './routes/admin.programm
 import { Route as AdminPrinciplesIndexRouteImport } from './routes/admin.principles.index'
 import { Route as AdminMessagesIndexRouteImport } from './routes/admin.messages.index'
 import { Route as AdminFormationsIndexRouteImport } from './routes/admin.formations.index'
+import { Route as AdminConcoursIndexRouteImport } from './routes/admin.concours.index'
 import { Route as AdminRegistrationsIdRouteImport } from './routes/admin.registrations.$id'
 import { Route as AdminMessagesIdRouteImport } from './routes/admin.messages.$id'
+import { Route as AdminConcoursSettingsRouteImport } from './routes/admin.concours.settings'
+import { Route as AdminConcoursIdRouteImport } from './routes/admin.concours.$id'
 
 const RealisationsRoute = RealisationsRouteImport.update({
   id: '/realisations',
@@ -81,6 +86,11 @@ const ContactRoute = ContactRouteImport.update({
 const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
   id: '/confidentialite',
   path: '/confidentialite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConcoursEnaRoute = ConcoursEnaRouteImport.update({
+  id: '/concours-ena',
+  path: '/concours-ena',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -158,6 +168,11 @@ const AdminForgotPasswordRoute = AdminForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminConcoursRoute = AdminConcoursRouteImport.update({
+  id: '/concours',
+  path: '/concours',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAccountRoute = AdminAccountRouteImport.update({
   id: '/account',
   path: '/account',
@@ -198,6 +213,11 @@ const AdminFormationsIndexRoute = AdminFormationsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminFormationsRoute,
 } as any)
+const AdminConcoursIndexRoute = AdminConcoursIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminConcoursRoute,
+} as any)
 const AdminRegistrationsIdRoute = AdminRegistrationsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -208,11 +228,22 @@ const AdminMessagesIdRoute = AdminMessagesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AdminMessagesRoute,
 } as any)
+const AdminConcoursSettingsRoute = AdminConcoursSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminConcoursRoute,
+} as any)
+const AdminConcoursIdRoute = AdminConcoursIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminConcoursRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
   '/admin': typeof AdminRouteWithChildren
+  '/concours-ena': typeof ConcoursEnaRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/formateurs': typeof FormateursRoute
@@ -222,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/programme': typeof ProgrammeRoute
   '/realisations': typeof RealisationsRoute
   '/admin/account': typeof AdminAccountRoute
+  '/admin/concours': typeof AdminConcoursRouteWithChildren
   '/admin/forgot-password': typeof AdminForgotPasswordRoute
   '/admin/formations': typeof AdminFormationsRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
@@ -234,8 +266,11 @@ export interface FileRoutesByFullPath {
   '/admin/trainers': typeof AdminTrainersRouteWithChildren
   '/formation/$slug': typeof FormationSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/concours/$id': typeof AdminConcoursIdRoute
+  '/admin/concours/settings': typeof AdminConcoursSettingsRoute
   '/admin/messages/$id': typeof AdminMessagesIdRoute
   '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/concours/': typeof AdminConcoursIndexRoute
   '/admin/formations/': typeof AdminFormationsIndexRoute
   '/admin/messages/': typeof AdminMessagesIndexRoute
   '/admin/principles/': typeof AdminPrinciplesIndexRoute
@@ -247,6 +282,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
+  '/concours-ena': typeof ConcoursEnaRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/formateurs': typeof FormateursRoute
@@ -261,8 +297,11 @@ export interface FileRoutesByTo {
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/formation/$slug': typeof FormationSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/concours/$id': typeof AdminConcoursIdRoute
+  '/admin/concours/settings': typeof AdminConcoursSettingsRoute
   '/admin/messages/$id': typeof AdminMessagesIdRoute
   '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/concours': typeof AdminConcoursIndexRoute
   '/admin/formations': typeof AdminFormationsIndexRoute
   '/admin/messages': typeof AdminMessagesIndexRoute
   '/admin/principles': typeof AdminPrinciplesIndexRoute
@@ -276,6 +315,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/academie': typeof AcademieRoute
   '/admin': typeof AdminRouteWithChildren
+  '/concours-ena': typeof ConcoursEnaRoute
   '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/formateurs': typeof FormateursRoute
@@ -285,6 +325,7 @@ export interface FileRoutesById {
   '/programme': typeof ProgrammeRoute
   '/realisations': typeof RealisationsRoute
   '/admin/account': typeof AdminAccountRoute
+  '/admin/concours': typeof AdminConcoursRouteWithChildren
   '/admin/forgot-password': typeof AdminForgotPasswordRoute
   '/admin/formations': typeof AdminFormationsRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
@@ -297,8 +338,11 @@ export interface FileRoutesById {
   '/admin/trainers': typeof AdminTrainersRouteWithChildren
   '/formation/$slug': typeof FormationSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/concours/$id': typeof AdminConcoursIdRoute
+  '/admin/concours/settings': typeof AdminConcoursSettingsRoute
   '/admin/messages/$id': typeof AdminMessagesIdRoute
   '/admin/registrations/$id': typeof AdminRegistrationsIdRoute
+  '/admin/concours/': typeof AdminConcoursIndexRoute
   '/admin/formations/': typeof AdminFormationsIndexRoute
   '/admin/messages/': typeof AdminMessagesIndexRoute
   '/admin/principles/': typeof AdminPrinciplesIndexRoute
@@ -313,6 +357,7 @@ export interface FileRouteTypes {
     | '/'
     | '/academie'
     | '/admin'
+    | '/concours-ena'
     | '/confidentialite'
     | '/contact'
     | '/formateurs'
@@ -322,6 +367,7 @@ export interface FileRouteTypes {
     | '/programme'
     | '/realisations'
     | '/admin/account'
+    | '/admin/concours'
     | '/admin/forgot-password'
     | '/admin/formations'
     | '/admin/login'
@@ -334,8 +380,11 @@ export interface FileRouteTypes {
     | '/admin/trainers'
     | '/formation/$slug'
     | '/admin/'
+    | '/admin/concours/$id'
+    | '/admin/concours/settings'
     | '/admin/messages/$id'
     | '/admin/registrations/$id'
+    | '/admin/concours/'
     | '/admin/formations/'
     | '/admin/messages/'
     | '/admin/principles/'
@@ -347,6 +396,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/academie'
+    | '/concours-ena'
     | '/confidentialite'
     | '/contact'
     | '/formateurs'
@@ -361,8 +411,11 @@ export interface FileRouteTypes {
     | '/admin/reset-password'
     | '/formation/$slug'
     | '/admin'
+    | '/admin/concours/$id'
+    | '/admin/concours/settings'
     | '/admin/messages/$id'
     | '/admin/registrations/$id'
+    | '/admin/concours'
     | '/admin/formations'
     | '/admin/messages'
     | '/admin/principles'
@@ -375,6 +428,7 @@ export interface FileRouteTypes {
     | '/'
     | '/academie'
     | '/admin'
+    | '/concours-ena'
     | '/confidentialite'
     | '/contact'
     | '/formateurs'
@@ -384,6 +438,7 @@ export interface FileRouteTypes {
     | '/programme'
     | '/realisations'
     | '/admin/account'
+    | '/admin/concours'
     | '/admin/forgot-password'
     | '/admin/formations'
     | '/admin/login'
@@ -396,8 +451,11 @@ export interface FileRouteTypes {
     | '/admin/trainers'
     | '/formation/$slug'
     | '/admin/'
+    | '/admin/concours/$id'
+    | '/admin/concours/settings'
     | '/admin/messages/$id'
     | '/admin/registrations/$id'
+    | '/admin/concours/'
     | '/admin/formations/'
     | '/admin/messages/'
     | '/admin/principles/'
@@ -411,6 +469,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademieRoute: typeof AcademieRoute
   AdminRoute: typeof AdminRouteWithChildren
+  ConcoursEnaRoute: typeof ConcoursEnaRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
   FormateursRoute: typeof FormateursRoute
@@ -477,6 +536,13 @@ declare module '@tanstack/react-router' {
       path: '/confidentialite'
       fullPath: '/confidentialite'
       preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concours-ena': {
+      id: '/concours-ena'
+      path: '/concours-ena'
+      fullPath: '/concours-ena'
+      preLoaderRoute: typeof ConcoursEnaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -584,6 +650,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminForgotPasswordRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/concours': {
+      id: '/admin/concours'
+      path: '/concours'
+      fullPath: '/admin/concours'
+      preLoaderRoute: typeof AdminConcoursRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/account': {
       id: '/admin/account'
       path: '/account'
@@ -640,6 +713,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFormationsIndexRouteImport
       parentRoute: typeof AdminFormationsRoute
     }
+    '/admin/concours/': {
+      id: '/admin/concours/'
+      path: '/'
+      fullPath: '/admin/concours/'
+      preLoaderRoute: typeof AdminConcoursIndexRouteImport
+      parentRoute: typeof AdminConcoursRoute
+    }
     '/admin/registrations/$id': {
       id: '/admin/registrations/$id'
       path: '/$id'
@@ -654,8 +734,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMessagesIdRouteImport
       parentRoute: typeof AdminMessagesRoute
     }
+    '/admin/concours/settings': {
+      id: '/admin/concours/settings'
+      path: '/settings'
+      fullPath: '/admin/concours/settings'
+      preLoaderRoute: typeof AdminConcoursSettingsRouteImport
+      parentRoute: typeof AdminConcoursRoute
+    }
+    '/admin/concours/$id': {
+      id: '/admin/concours/$id'
+      path: '/$id'
+      fullPath: '/admin/concours/$id'
+      preLoaderRoute: typeof AdminConcoursIdRouteImport
+      parentRoute: typeof AdminConcoursRoute
+    }
   }
 }
+
+interface AdminConcoursRouteChildren {
+  AdminConcoursIdRoute: typeof AdminConcoursIdRoute
+  AdminConcoursSettingsRoute: typeof AdminConcoursSettingsRoute
+  AdminConcoursIndexRoute: typeof AdminConcoursIndexRoute
+}
+
+const AdminConcoursRouteChildren: AdminConcoursRouteChildren = {
+  AdminConcoursIdRoute: AdminConcoursIdRoute,
+  AdminConcoursSettingsRoute: AdminConcoursSettingsRoute,
+  AdminConcoursIndexRoute: AdminConcoursIndexRoute,
+}
+
+const AdminConcoursRouteWithChildren = AdminConcoursRoute._addFileChildren(
+  AdminConcoursRouteChildren,
+)
 
 interface AdminFormationsRouteChildren {
   AdminFormationsIndexRoute: typeof AdminFormationsIndexRoute
@@ -746,6 +856,7 @@ const AdminTrainersRouteWithChildren = AdminTrainersRoute._addFileChildren(
 
 interface AdminRouteChildren {
   AdminAccountRoute: typeof AdminAccountRoute
+  AdminConcoursRoute: typeof AdminConcoursRouteWithChildren
   AdminForgotPasswordRoute: typeof AdminForgotPasswordRoute
   AdminFormationsRoute: typeof AdminFormationsRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
@@ -761,6 +872,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAccountRoute: AdminAccountRoute,
+  AdminConcoursRoute: AdminConcoursRouteWithChildren,
   AdminForgotPasswordRoute: AdminForgotPasswordRoute,
   AdminFormationsRoute: AdminFormationsRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
@@ -792,6 +904,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademieRoute: AcademieRoute,
   AdminRoute: AdminRouteWithChildren,
+  ConcoursEnaRoute: ConcoursEnaRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
   FormateursRoute: FormateursRoute,

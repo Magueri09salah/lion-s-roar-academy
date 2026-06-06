@@ -1,5 +1,5 @@
 import { Link, useRouter, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, Mail, Users, FileText, GraduationCap, Sparkles, CalendarClock, UserSquare2, ChevronRight, Menu, X, KeyRound } from "lucide-react";
+import { LayoutDashboard, LogOut, Mail, Users, FileText, GraduationCap, Sparkles, CalendarClock, UserSquare2, ChevronRight, Menu, X, KeyRound, Target } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { clearSession, useAuthSession } from "@/lib/admin/auth";
 import { useLogoutMutation } from "@/lib/admin/queries";
@@ -19,6 +19,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
   { to: "/admin/registrations", label: "Inscriptions", icon: Users },
+  { to: "/admin/concours", label: "Concours ENA", icon: Target },
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/principles", label: "Principes", icon: Sparkles },
   { to: "/admin/programme", label: "Programme", icon: CalendarClock },

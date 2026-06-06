@@ -11,6 +11,11 @@ import type {
   AdminProject,
   AdminTrainer,
   AdminUser,
+  ConcoursDetail,
+  ConcoursListItem,
+  ConcoursListMeta,
+  ConcoursListParams,
+  ConcoursSettings,
   ContactMessageDetail,
   ContactMessageListItem,
   ContactMessageListMeta,
@@ -20,6 +25,8 @@ import type {
   RegistrationListItem,
   RegistrationListMeta,
   RegistrationListParams,
+  UpdateConcoursPayload,
+  UpdateConcoursSettingsPayload,
   UpdateContactMessagePayload,
   UpdateRegistrationPayload,
   UploadedMedia,
@@ -592,6 +599,128 @@ export function useUploadMediaMutation() {
   });
 }
 
+// ----- Concours ENA (admin) ---------------------------------------------
+
+export function adminConcoursKey(params: ConcoursListParams = {}) {
+  return ["admin", "concours", params] as const;
+}
+
+export function useAdminConcoursQuery(params: ConcoursListParams) {
+  return useQuery({
+    queryKey: adminConcoursKey(params),
+    queryFn: async () => {
+      const res = await apiFetch<ConcoursListItem[]>("/api/v1/admin/registrations-concours", {
+        query: {
+          q: params.q,
+          status: params.status,
+          priority: params.priority,
+          filiere: params.filiere,
+          city: params.city,
+          regional_grade: params.regional_grade,
+          preferred_format: params.preferred_format,
+          date_from: params.date_from,
+          date_to: params.date_to,
+          sort: params.sort,
+          per_page: params.per_page,
+          page: params.page,
+        },
+      });
+      return { items: res.data, meta: res.meta as unknown as ConcoursListMeta };
+    },
+    placeholderData: (prev) => prev,
+    staleTime: 10_000,
+  });
+}
+
+export function useConcoursLeadQuery(id: number | string | undefined) {
+  return useQuery({
+    queryKey: ["admin", "concours", "detail", id],
+    enabled: id !== undefined,
+    queryFn: async () => {
+      const res = await apiFetch<ConcoursDetail>(`/api/v1/admin/registrations-concours/${id}`);
+      return res.data;
+    },
+  });
+}
+
+export function useUpdateConcoursLeadMutation(id: number) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: UpdateConcoursPayload) => {
+      const res = await apiFetch<ConcoursDetail>(`/api/v1/admin/registrations-concours/${id}`, {
+        method: "PATCH",
+        body: payload,
+      });
+      return res.data;
+    },
+    onSuccess: (updated) => {
+      qc.setQueryData(["admin", "concours", "detail", id], updated);
+      qc.invalidateQueries({ queryKey: ["admin", "concours"] });
+    },
+  });
+}
+
+export function useDeleteConcoursLeadMutation(id: number) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      await apiFetch(`/api/v1/admin/registrations-concours/${id}`, { method: "DELETE" });
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin", "concours"] });
+    },
+  });
+}
+
+// ----- Concours settings (admin video editor) --------------------------
+
+export function useAdminConcoursSettingsQuery() {
+  return useQuery({
+    queryKey: ["admin", "concours-settings"],
+    queryFn: async () => {
+      const res = await apiFetch<ConcoursSettings>("/api/v1/admin/concours-settings");
+      return res.data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useUpdateConcoursSettingsMutation() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: UpdateConcoursSettingsPayload) => {
+      const res = await apiFetch<ConcoursSettings>("/api/v1/admin/concours-settings", {
+        method: "PATCH",
+        body: payload,
+      });
+      return res.data;
+    },
+    onSuccess: (updated) => {
+      qc.setQueryData(["admin", "concours-settings"], updated);
+    },
+  });
+}
+
+// ----- Video upload (admin) --------------------------------------------
+// Hits the dedicated /admin/media/videos endpoint with a 200 MB limit
+// and the video/* MIME whitelist. Same return shape as the image upload.
+
+export function useUploadVideoMutation() {
+  return useMutation({
+    mutationFn: async (input: { file: File; folder?: string; alt?: string }) => {
+      const form = new FormData();
+      form.append("file", input.file);
+      if (input.folder) form.append("folder", input.folder);
+      if (input.alt) form.append("alt", input.alt);
+      const res = await apiFetch<UploadedMedia>("/api/v1/admin/media/videos", {
+        method: "POST",
+        body: form,
+      });
+      return res.data;
+    },
+  });
+}
+
 // ----- Export ------------------------------------------------------------
 
 export type ExportFormat = "csv" | "xlsx";
@@ -604,6 +733,24 @@ export function buildExportUrl(params: RegistrationListParams = {}, format: Expo
   if (params.q) url.searchParams.set("q", params.q);
   if (params.status?.length) params.status.forEach((s) => url.searchParams.append("status[]", s));
   if (params.formation) url.searchParams.set("formation", params.formation);
+  if (params.date_from) url.searchParams.set("date_from", params.date_from);
+  if (params.date_to) url.searchParams.set("date_to", params.date_to);
+  return url.toString();
+}
+
+/** Export URL for ENA leads — filter pipeline matches the admin list query. */
+export function buildConcoursExportUrl(params: ConcoursListParams = {}, format: ExportFormat = "csv"): string {
+  const url = new URL(
+    `/api/v1/admin/registrations-concours/export.${format}`,
+    (import.meta.env.VITE_API_URL as string) ?? "http://127.0.0.1:8000",
+  );
+  if (params.q) url.searchParams.set("q", params.q);
+  if (params.status?.length) params.status.forEach((s) => url.searchParams.append("status[]", s));
+  if (params.priority?.length) params.priority.forEach((p) => url.searchParams.append("priority[]", p));
+  if (params.filiere) url.searchParams.set("filiere", params.filiere);
+  if (params.city) url.searchParams.set("city", params.city);
+  if (params.regional_grade) url.searchParams.set("regional_grade", params.regional_grade);
+  if (params.preferred_format) url.searchParams.set("preferred_format", params.preferred_format);
   if (params.date_from) url.searchParams.set("date_from", params.date_from);
   if (params.date_to) url.searchParams.set("date_to", params.date_to);
   return url.toString();

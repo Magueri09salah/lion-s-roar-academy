@@ -86,12 +86,16 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { location } = useRouterState();
   // Hide the public site chrome (Header / Footer / floating WhatsApp button)
-  // for any /admin/* route. The back-office has its own shell (AdminShell).
+  // for any /admin/* route (the back-office has its own shell) AND for
+  // any standalone landing page used by an ad campaign — these convert
+  // better without nav distractions.
   const isAdminRoute = location.pathname === "/admin" || location.pathname.startsWith("/admin/");
+  const isStandaloneLandingRoute = location.pathname === "/concours-ena" || location.pathname.startsWith("/concours-ena/");
+  const hideChrome = isAdminRoute || isStandaloneLandingRoute;
 
   return (
     <QueryClientProvider client={queryClient}>
-      {isAdminRoute ? (
+      {hideChrome ? (
         <Outlet />
       ) : (
         <div className="flex min-h-screen flex-col">

@@ -393,3 +393,137 @@ export interface UploadedMedia {
   visibility: "public" | "private";
   created_at: string;
 }
+
+// ----- Concours ENA (leads + landing settings) --------------------------
+
+export type RegistrationConcoursStatusValue = "new" | "contacted" | "qualified" | "converted" | "lost";
+export type RegistrationConcoursPriorityValue = "high" | "medium" | "low";
+
+export interface RegistrationConcoursStatusBadge {
+  value: RegistrationConcoursStatusValue;
+  label: string;
+  tone: StatusTone;
+}
+
+export interface RegistrationConcoursPriorityBadge {
+  value: RegistrationConcoursPriorityValue;
+  label: string;
+  tone: StatusTone;
+}
+
+export interface LabelValue<T = string> {
+  value: T;
+  label: string;
+}
+
+export interface ConcoursListItem {
+  id: number;
+  full_name: string;
+  email: string;
+  whatsapp_phone: string;
+  city: string;
+  filiere: LabelValue;
+  regional_grade: LabelValue;
+  preferred_format: LabelValue;
+  status: RegistrationConcoursStatusBadge;
+  priority: RegistrationConcoursPriorityBadge;
+  passed_ena_before: boolean;
+  submitted_at: string;
+}
+
+export interface ConcoursDetail extends ConcoursListItem {
+  admin_notes: string | null;
+  ip_address: string | null;
+  user_agent: string | null;
+  status_changed_at: string | null;
+  status_changed_by: { id: number; name: string } | null;
+  whatsapp_redirect_url: string | null;
+  whatsapp_applicant_url: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ConcoursListMeta {
+  pagination: PaginationMeta;
+  filters: {
+    q: string | null;
+    status: RegistrationConcoursStatusValue[];
+    priority: RegistrationConcoursPriorityValue[];
+    filiere: string | null;
+    city: string | null;
+    regional_grade: string | null;
+    preferred_format: string | null;
+    date_from: string | null;
+    date_to: string | null;
+    sort: string;
+  };
+  status_options: RegistrationConcoursStatusBadge[];
+  priority_options: RegistrationConcoursPriorityBadge[];
+  filiere_options: LabelValue[];
+  grade_options: LabelValue[];
+  format_options: LabelValue[];
+  city_options: string[];
+  status_counts: Record<RegistrationConcoursStatusValue | "all", number>;
+  priority_counts: Record<RegistrationConcoursPriorityValue, number>;
+}
+
+export interface ConcoursListParams {
+  q?: string;
+  status?: RegistrationConcoursStatusValue[];
+  priority?: RegistrationConcoursPriorityValue[];
+  filiere?: string;
+  city?: string;
+  regional_grade?: string;
+  preferred_format?: string;
+  date_from?: string;
+  date_to?: string;
+  sort?: string;
+  per_page?: number;
+  page?: number;
+}
+
+export interface UpdateConcoursPayload {
+  status?: RegistrationConcoursStatusValue;
+  admin_notes?: string | null;
+}
+
+export interface ConcoursSettings {
+  hero_video_url: string | null;
+  hero_video_poster_url: string | null;
+  explainer_video_url: string | null;
+  explainer_video_poster_url: string | null;
+  explainer_title: string | null;
+  testimonial_1_url: string | null;
+  testimonial_1_poster_url: string | null;
+  testimonial_1_label: string | null;
+  testimonial_2_url: string | null;
+  testimonial_2_poster_url: string | null;
+  testimonial_2_label: string | null;
+  updated_at: string | null;
+}
+
+export interface UpdateConcoursSettingsPayload {
+  hero_video_url?: string | null;
+  hero_video_poster_url?: string | null;
+  explainer_video_url?: string | null;
+  explainer_video_poster_url?: string | null;
+  explainer_title?: string | null;
+  testimonial_1_url?: string | null;
+  testimonial_1_poster_url?: string | null;
+  testimonial_1_label?: string | null;
+  testimonial_2_url?: string | null;
+  testimonial_2_poster_url?: string | null;
+  testimonial_2_label?: string | null;
+}
+
+// Public form payload (matches backend StoreRegistrationConcoursRequest)
+export interface SubmitConcoursLeadPayload {
+  full_name: string;
+  whatsapp_phone: string;
+  email: string;
+  filiere: string;
+  regional_grade: string;
+  city: string;
+  preferred_format: string;
+  passed_ena_before: boolean;
+}
