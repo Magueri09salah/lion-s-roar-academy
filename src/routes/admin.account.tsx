@@ -16,7 +16,7 @@ export const Route = createFileRoute("/admin/account")({
   component: AccountPage,
   head: () => ({
     meta: [
-      { title: "Mon compte — Lions Academy" },
+      { title: "Mon compte — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

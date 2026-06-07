@@ -11,7 +11,7 @@ export const Route = createFileRoute("/admin/forgot-password")({
   component: ForgotPasswordPage,
   head: () => ({
     meta: [
-      { title: "Mot de passe oublié — Lions Academy" },
+      { title: "Mot de passe oublié — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

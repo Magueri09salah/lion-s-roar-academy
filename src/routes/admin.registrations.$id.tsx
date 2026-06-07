@@ -17,7 +17,7 @@ export const Route = createFileRoute("/admin/registrations/$id")({
   component: RegistrationDetail,
   head: () => ({
     meta: [
-      { title: "Inscription — Lions Academy" },
+      { title: "Inscription — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

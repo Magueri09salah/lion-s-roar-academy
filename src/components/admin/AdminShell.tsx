@@ -5,7 +5,7 @@ import { clearSession, useAuthSession } from "@/lib/admin/auth";
 import { useLogoutMutation } from "@/lib/admin/queries";
 
 // Shared layout for every authenticated /admin/* page.
-// Mirrors Lions Academy's palette so the back-office reads as part of
+// Mirrors Lions Academie's palette so the back-office reads as part of
 // the same brand without competing with the public site chrome.
 
 interface NavItem {
@@ -61,7 +61,7 @@ export function AdminShell({ children, title, eyebrow, actions }: {
         <div className="shrink-0 h-18 flex items-center gap-2.5 px-6 border-b" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
           <span className="grid place-items-center w-9 h-9 rounded-full font-display text-base" style={{ background: "var(--gradient-gold)", color: "var(--ink)" }}>L</span>
           <span className="leading-tight">
-            <span className="block font-display text-base tracking-tight">LIONS ACADEMY</span>
+            <span className="block font-display text-base tracking-tight">LIONS ACADEMIE</span>
             <span className="block text-[10px] uppercase tracking-[0.22em]" style={{ color: "color-mix(in oklab, var(--ivory) 55%, transparent)" }}>Back-office</span>
           </span>
         </div>

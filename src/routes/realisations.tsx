@@ -14,9 +14,9 @@ export const Route = createFileRoute("/realisations")({
   loader: () => fetchProjects(),
   head: () => ({
     meta: [
-      { title: "Réalisations des élèves — Lions Academy" },
-      { name: "description", content: "Galerie des projets, moodboards et rendus produits par les élèves de Lions Academy." },
-      { property: "og:title", content: "Réalisations — Lions Academy" },
+      { title: "Réalisations des élèves — Lions Academie" },
+      { name: "description", content: "Galerie des projets, moodboards et rendus produits par les élèves de Lions Academie." },
+      { property: "og:title", content: "Réalisations — Lions Academie" },
       { property: "og:description", content: "Découvrez les travaux de nos élèves : rendus 3D, moodboards et projets de fin de formation." },
     ],
   }),

@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin/formations/")({
   component: FormationsAdmin,
   head: () => ({
     meta: [
-      { title: "Formations — Lions Academy" },
+      { title: "Formations — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

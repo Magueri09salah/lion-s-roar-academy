@@ -21,9 +21,9 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "Lions Academy – Formation Architecture d'intérieur" },
+      { title: "Lions Academie – Formation Architecture d'intérieur" },
       { name: "description", content: "Formation professionnelle à distance en architecture et décoration." },
-      { property: "og:title", content: "Lions Academy – Formation Architecture d'intérieur" },
+      { property: "og:title", content: "Lions Academie – Formation Architecture d'intérieur" },
       { property: "og:description", content: "Formation professionnelle à distance en architecture et décoration." },
     ],
   }),
@@ -93,7 +93,7 @@ function HomePage() {
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl" style={{ background: "var(--gradient-gold)", opacity: 0.18, filter: "blur(40px)" }} />
             <div className="relative rounded-3xl overflow-hidden border border-border" style={{ boxShadow: "var(--shadow-elegant)" }}>
-              <img src={hero} alt="Atelier d'architecture d'intérieur Lions Academy" width={1600} height={1024} className="w-full h-auto" />
+              <img src={hero} alt="Atelier d'architecture d'intérieur Lions Academie" width={1600} height={1024} className="w-full h-auto" />
             </div>
             <div className="absolute -bottom-6 -left-6 hidden md:block bg-card rounded-2xl border border-border p-5 max-w-[220px]" style={{ boxShadow: "var(--shadow-soft)" }}>
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Certificat</div>
@@ -104,7 +104,7 @@ function HomePage() {
       </section>
 
       {/* ACADEMY INTRODUCTION */}
-      <Section eyebrow="L'académie" title="Une académie pensée pour le métier" intro="Lions Academy forme à l'architecture d'intérieur et à la décoration avec une pédagogie exigeante, à distance, fondée sur la pratique et la culture du projet.">
+      <Section eyebrow="L'académie" title="Une académie pensée pour le métier" intro="Lions Academie forme à l'architecture d'intérieur et à la décoration avec une pédagogie exigeante, à distance, fondée sur la pratique et la culture du projet.">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
             <p className="text-base text-muted-foreground leading-relaxed">
@@ -123,13 +123,13 @@ function HomePage() {
             </div>
           </div>
           <div className="order-1 lg:order-2 rounded-3xl overflow-hidden border border-border" style={{ boxShadow: "var(--shadow-soft)" }}>
-            <img src={academyImg} alt="L'académie Lions Academy" loading="lazy" width={1024} height={1024} className="w-full h-auto" />
+            <img src={academyImg} alt="L'académie Lions Academie" loading="lazy" width={1024} height={1024} className="w-full h-auto" />
           </div>
         </div>
       </Section>
 
       {/* PRINCIPES */}
-      <Section eyebrow="Notre approche" title="Les principes de l'académie" intro="Six engagements pédagogiques qui font la différence Lions Academy.">
+      <Section eyebrow="Notre approche" title="Les principes de l'académie" intro="Six engagements pédagogiques qui font la différence Lions Academie.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {principles.map((p, i) => {
             const Icon = PRINCIPLE_ICONS[i] ?? Award;

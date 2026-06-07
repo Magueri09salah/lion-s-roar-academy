@@ -17,7 +17,7 @@ export const Route = createFileRoute("/admin/concours/$id")({
   component: ConcoursDetail,
   head: () => ({
     meta: [
-      { title: "Lead Concours ENA — Lions Academy" },
+      { title: "Lead Concours ENA — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

@@ -14,7 +14,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-2.5 group">
           <span className="grid place-items-center w-9 h-9 rounded-full bg-ink text-ivory font-display text-base">L</span>
           <span className="leading-tight">
-            <span className="block font-display text-lg tracking-tight">LIONS ACADEMY</span>
+            <span className="block font-display text-lg tracking-tight">LIONS ACADEMIE</span>
             <span className="block text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Formation d'élite</span>
           </span>
         </Link>

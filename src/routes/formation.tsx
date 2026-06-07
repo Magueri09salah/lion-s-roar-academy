@@ -9,9 +9,9 @@ export const Route = createFileRoute("/formation")({
   loader: () => fetchFormations(),
   head: () => ({
     meta: [
-      { title: "Formations — Lions Academy" },
-      { name: "description", content: "Toutes les formations Lions Academy en architecture d'intérieur et décoration : durée, format, programme." },
-      { property: "og:title", content: "Formations — Lions Academy" },
+      { title: "Formations — Lions Academie" },
+      { name: "description", content: "Toutes les formations Lions Academie en architecture d'intérieur et décoration : durée, format, programme." },
+      { property: "og:title", content: "Formations — Lions Academie" },
       { property: "og:description", content: "Découvrez nos formations à distance en architecture d'intérieur." },
     ],
   }),

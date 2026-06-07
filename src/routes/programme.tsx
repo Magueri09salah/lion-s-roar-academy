@@ -8,9 +8,9 @@ export const Route = createFileRoute("/programme")({
   loader: () => fetchProgram(),
   head: () => ({
     meta: [
-      { title: "Programme & Calendrier — Lions Academy" },
-      { name: "description", content: "Découvrez le programme mois par mois de la formation Lions Academy : objectifs, ateliers et rendus." },
-      { property: "og:title", content: "Programme & Calendrier — Lions Academy" },
+      { title: "Programme & Calendrier — Lions Academie" },
+      { name: "description", content: "Découvrez le programme mois par mois de la formation Lions Academie : objectifs, ateliers et rendus." },
+      { property: "og:title", content: "Programme & Calendrier — Lions Academie" },
       { property: "og:description", content: "6 mois structurés pour apprendre l'architecture d'intérieur." },
     ],
   }),
@@ -71,7 +71,7 @@ function Programme() {
       <Section eyebrow="Certification" title="Conditions d'obtention du certificat" className="bg-secondary/40">
         <div className="max-w-3xl">
           <p className="text-muted-foreground leading-relaxed text-base">
-            Pour obtenir le certificat Lions Academy, l'apprenant doit valider les rendus mensuels ainsi que le Projet de Fin de Formation. Le certificat n'est pas délivré automatiquement par simple présence aux cours.
+            Pour obtenir le certificat Lions Academie, l'apprenant doit valider les rendus mensuels ainsi que le Projet de Fin de Formation. Le certificat n'est pas délivré automatiquement par simple présence aux cours.
           </p>
           <Link to="/inscription" className="btn-gold mt-8">Je souhaite m'inscrire</Link>
         </div>

@@ -19,7 +19,7 @@ export const Route = createFileRoute("/admin/reset-password")({
   component: ResetPasswordPage,
   head: () => ({
     meta: [
-      { title: "Réinitialiser le mot de passe — Lions Academy" },
+      { title: "Réinitialiser le mot de passe — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

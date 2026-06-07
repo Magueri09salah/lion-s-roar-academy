@@ -8,9 +8,9 @@ import { SITE, whatsappUrl } from "@/lib/site";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Lions Academy" },
-      { name: "description", content: "Contactez Lions Academy : téléphone, WhatsApp, email ou formulaire. Notre équipe vous répond rapidement." },
-      { property: "og:title", content: "Contact — Lions Academy" },
+      { title: "Contact — Lions Academie" },
+      { name: "description", content: "Contactez Lions Academie : téléphone, WhatsApp, email ou formulaire. Notre équipe vous répond rapidement." },
+      { property: "og:title", content: "Contact — Lions Academie" },
       { property: "og:description", content: "Une question, un projet ? Discutons-en." },
     ],
   }),

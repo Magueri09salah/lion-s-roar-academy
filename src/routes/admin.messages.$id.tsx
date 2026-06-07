@@ -17,7 +17,7 @@ export const Route = createFileRoute("/admin/messages/$id")({
   component: MessageDetail,
   head: () => ({
     meta: [
-      { title: "Message — Lions Academy" },
+      { title: "Message — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

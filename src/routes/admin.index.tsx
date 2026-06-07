@@ -14,7 +14,7 @@ export const Route = createFileRoute("/admin/")({
   component: AdminDashboard,
   head: () => ({
     meta: [
-      { title: "Tableau de bord — Lions Academy" },
+      { title: "Tableau de bord — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -48,7 +48,7 @@ function AdminDashboard() {
       eyebrow="Vue d'ensemble"
       title={`${greeting}${user?.name ? `, ${user.name.split(" ")[0]}` : ""}`}
     >
-      {/* Stat cards — Lions Academy palette */}
+      {/* Stat cards — Lions Academie palette */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           icon={Users}

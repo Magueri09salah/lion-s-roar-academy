@@ -9,9 +9,9 @@ export const Route = createFileRoute("/formateurs")({
   loader: () => fetchTrainers(),
   head: () => ({
     meta: [
-      { title: "Formateurs — Lions Academy" },
-      { name: "description", content: "Découvrez les formateurs de Lions Academy : architectes, designers et enseignants passionnés par la transmission." },
-      { property: "og:title", content: "Formateurs — Lions Academy" },
+      { title: "Formateurs — Lions Academie" },
+      { name: "description", content: "Découvrez les formateurs de Lions Academie : architectes, designers et enseignants passionnés par la transmission." },
+      { property: "og:title", content: "Formateurs — Lions Academie" },
       { property: "og:description", content: "Une équipe pédagogique experte en architecture d'intérieur et design 3D." },
     ],
   }),

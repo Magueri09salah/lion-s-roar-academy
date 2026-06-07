@@ -14,10 +14,10 @@ export const Route = createFileRoute("/inscription")({
   loader: () => fetchFormations(),
   head: () => ({
     meta: [
-      { title: "Inscription — Lions Academy" },
-      { name: "description", content: "Inscrivez-vous à la formation Lions Academy en architecture d'intérieur et décoration." },
-      { property: "og:title", content: "Inscription — Lions Academy" },
-      { property: "og:description", content: "Demande d'inscription à la formation à distance Lions Academy." },
+      { title: "Inscription — Lions Academie" },
+      { name: "description", content: "Inscrivez-vous à la formation Lions Academie en architecture d'intérieur et décoration." },
+      { property: "og:title", content: "Inscription — Lions Academie" },
+      { property: "og:description", content: "Demande d'inscription à la formation à distance Lions Academie." },
     ],
   }),
   pendingComponent: () => (
@@ -223,7 +223,7 @@ function Inscription() {
                     {submitting ? "Envoi…" : "Envoyer ma demande"}
                   </button>
                   <a
-                    href={whatsappUrl("Bonjour, je souhaite m'inscrire à la formation Architecture d'intérieur & Décoration de Lions Academy.")}
+                    href={whatsappUrl("Bonjour, je souhaite m'inscrire à la formation Architecture d'intérieur & Décoration de Lions Academie.")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline-ink inline-flex items-center gap-2"

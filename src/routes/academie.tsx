@@ -10,9 +10,9 @@ export const Route = createFileRoute("/academie")({
   loader: () => fetchPrinciples(),
   head: () => ({
     meta: [
-      { title: "L'Académie — Lions Academy" },
-      { name: "description", content: "Découvrez la philosophie pédagogique de Lions Academy : formation à distance, méthode pratique et orientée métier." },
-      { property: "og:title", content: "L'Académie — Lions Academy" },
+      { title: "L'Académie — Lions Academie" },
+      { name: "description", content: "Découvrez la philosophie pédagogique de Lions Academie : formation à distance, méthode pratique et orientée métier." },
+      { property: "og:title", content: "L'Académie — Lions Academie" },
       { property: "og:description", content: "Notre vision pédagogique pour former les futurs architectes d'intérieur." },
     ],
   }),
@@ -38,7 +38,7 @@ function Academie() {
       <PageHero
         eyebrow="Notre académie"
         title="Une école de design pensée pour le métier."
-        intro="Lions Academy forme à distance des passionnés d'architecture d'intérieur et de décoration, avec une méthode complète qui combine technique, logiciels, culture et pratique."
+        intro="Lions Academie forme à distance des passionnés d'architecture d'intérieur et de décoration, avec une méthode complète qui combine technique, logiciels, culture et pratique."
       />
       <Section eyebrow="Philosophie" title="Apprendre l'espace, transmettre un métier">
         <div className="grid md:grid-cols-2 gap-10 items-start">
@@ -61,7 +61,7 @@ function Academie() {
           ))}
         </div>
       </Section>
-      <Section centered title="Une formation. Une vision. Un certificat." intro="Le certificat Lions Academy est délivré uniquement après validation de tous les rendus mensuels et du Projet de Fin de Formation.">
+      <Section centered title="Une formation. Une vision. Un certificat." intro="Le certificat Lions Academie est délivré uniquement après validation de tous les rendus mensuels et du Projet de Fin de Formation.">
         <div className="text-center">
           <Link to="/inscription" className="btn-gold">Rejoindre la prochaine promo</Link>
         </div>

@@ -25,7 +25,7 @@ export const Route = createFileRoute("/admin/login")({
   component: AdminLogin,
   head: () => ({
     meta: [
-      { title: "Connexion — Lions Academy" },
+      { title: "Connexion — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -90,7 +90,7 @@ function AdminLogin() {
             L
           </div>
           <h1 className="mt-5 font-display text-3xl">Back-office</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Connectez-vous pour accéder à l'administration Lions Academy.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Connectez-vous pour accéder à l'administration Lions Academie.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="card-elegant mt-8 space-y-5">

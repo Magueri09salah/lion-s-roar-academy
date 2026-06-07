@@ -25,9 +25,9 @@ export const Route = createFileRoute("/concours-ena")({
   },
   head: () => ({
     meta: [
-      { title: "Préparation au Concours ENA — Lions Academy" },
-      { name: "description", content: "Préparez le concours d'entrée des Écoles Nationales d'Architecture avec Lions Academy : méthode éprouvée, suivi personnalisé, présentiel à Marrakech ou en ligne." },
-      { property: "og:title", content: "Préparation au Concours ENA — Lions Academy" },
+      { title: "Préparation au Concours ENA — Lions Academie" },
+      { name: "description", content: "Préparez le concours d'entrée des Écoles Nationales d'Architecture avec Lions Academie : méthode éprouvée, suivi personnalisé, présentiel à Marrakech ou en ligne." },
+      { property: "og:title", content: "Préparation au Concours ENA — Lions Academie" },
       { property: "og:description", content: "Méthode éprouvée pour le concours ENA. Présentiel à Marrakech ou en ligne." },
       { property: "og:type", content: "website" },
     ],
@@ -171,7 +171,7 @@ function HeroSection({ settings }: { settings: ConcoursSettings }) {
                 <div className="text-center px-6">
                   <Sparkles size={32} className="mx-auto mb-3" style={{ color: "var(--gold)" }} />
                   <p className="font-display text-2xl">Concours ENA</p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em]">Préparation Lions Academy</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em]">Préparation Lions Academie</p>
                 </div>
               </div>
             )}
@@ -554,7 +554,7 @@ function TestimonialsSection({ settings }: { settings: ConcoursSettings }) {
           <span className="eyebrow">Ils témoignent</span>
           <h2 className="mt-4 font-display text-3xl sm:text-4xl">Anciens élèves, parcours réussis</h2>
           <p className="mt-4 text-muted-foreground">
-            Ils ont préparé le concours avec Lions Academy.
+            Ils ont préparé le concours avec Lions Academie.
           </p>
         </div>
 
@@ -625,7 +625,7 @@ function LandingFooter() {
   return (
     <footer className="border-t" style={{ borderColor: "var(--border)" }}>
       <div className="container-page py-10 text-center">
-        <div className="font-display text-lg">Lions Academy</div>
+        <div className="font-display text-lg">Lions Academie</div>
         <p className="mt-2 text-xs text-muted-foreground">
           Préparation au concours ENA — © {new Date().getFullYear()}
         </p>

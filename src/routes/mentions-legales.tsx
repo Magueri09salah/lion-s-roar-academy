@@ -6,10 +6,10 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/mentions-legales")({
   head: () => ({
     meta: [
-      { title: "Mentions légales — Lions Academy" },
-      { name: "description", content: "Mentions légales de Lions Academy." },
-      { property: "og:title", content: "Mentions légales — Lions Academy" },
-      { property: "og:description", content: "Informations légales relatives au site Lions Academy." },
+      { title: "Mentions légales — Lions Academie" },
+      { name: "description", content: "Mentions légales de Lions Academie." },
+      { property: "og:title", content: "Mentions légales — Lions Academie" },
+      { property: "og:description", content: "Informations légales relatives au site Lions Academie." },
     ],
   }),
   component: Legal,
@@ -27,7 +27,7 @@ function Legal() {
           <h2 className="font-display text-2xl text-foreground">Hébergement</h2>
           <p>Le site est hébergé sur une infrastructure cloud sécurisée.</p>
           <h2 className="font-display text-2xl text-foreground">Propriété intellectuelle</h2>
-          <p>L'ensemble des contenus présents sur ce site (textes, images, logos) est la propriété exclusive de Lions Academy. Toute reproduction sans autorisation est interdite.</p>
+          <p>L'ensemble des contenus présents sur ce site (textes, images, logos) est la propriété exclusive de Lions Academie. Toute reproduction sans autorisation est interdite.</p>
         </article>
       </Section>
     </>

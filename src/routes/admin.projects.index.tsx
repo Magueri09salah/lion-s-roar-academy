@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin/projects/")({
   component: ProjectsAdmin,
   head: () => ({
     meta: [
-      { title: "Réalisations — Lions Academy" },
+      { title: "Réalisations — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

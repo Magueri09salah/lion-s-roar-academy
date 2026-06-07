@@ -21,7 +21,7 @@ export const Route = createFileRoute("/admin/concours/settings")({
   component: ConcoursSettingsPage,
   head: () => ({
     meta: [
-      { title: "Vidéos du landing Concours — Lions Academy" },
+      { title: "Vidéos du landing Concours — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

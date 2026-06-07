@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin/trainers/")({
   component: TrainersAdmin,
   head: () => ({
     meta: [
-      { title: "Formateurs — Lions Academy" },
+      { title: "Formateurs — Lions Academie" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),

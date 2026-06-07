@@ -9,7 +9,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5">
             <span className="grid place-items-center w-9 h-9 rounded-full bg-ivory text-ink font-display text-base">L</span>
-            <span className="font-display text-2xl">LIONS ACADEMY</span>
+            <span className="font-display text-2xl">LIONS ACADEMIE</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-ivory/70 leading-relaxed">
             Une académie de formation à distance dédiée à l'architecture d'intérieur et à la décoration. Apprendre, concevoir, présenter — avec méthode.
@@ -51,7 +51,7 @@ export function Footer() {
       </div>
       <div className="border-t border-ivory/10">
         <div className="container-page py-5 text-xs text-ivory/50 flex flex-col sm:flex-row justify-between gap-2">
-          <span>© {new Date().getFullYear()} Lions Academy — Tous droits réservés.</span>
+          <span>© {new Date().getFullYear()} Lions Academie — Tous droits réservés.</span>
           <span>Conçu avec élégance.</span>
         </div>
       </div>

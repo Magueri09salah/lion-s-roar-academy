@@ -1,17 +1,17 @@
 export const SITE = {
-  name: "Lions Academy",
+  name: "Lions Academie",
   tagline: "Académie d'architecture d'intérieur & décoration",
   phone: "+212 600 000 000",
   whatsapp: "212600000000",
-  whatsappMessage: "Bonjour Lions Academy, je souhaite avoir plus d'informations sur la formation.",
-  email: "contact@lionsacademy.ma",
+  whatsappMessage: "Bonjour Lions Academie, je souhaite avoir plus d'informations sur la formation.",
+  email: "contact@lionsacademie.ma",
   city: "Marrakech, Maroc",
-  url: "https://lionsacademy.ma",
+  url: "https://lionsacademie.com",
   social: {
-    instagram: "https://instagram.com/lionsacademy",
-    facebook: "https://facebook.com/lionsacademy",
-    tiktok: "https://tiktok.com/@lionsacademy",
-    youtube: "https://youtube.com/@lionsacademy",
+    instagram: "https://instagram.com/lionsacademie",
+    facebook: "https://facebook.com/lionsacademie",
+    tiktok: "https://tiktok.com/@lionsacademie",
+    youtube: "https://youtube.com/@lionsacademie",
   },
 };
 

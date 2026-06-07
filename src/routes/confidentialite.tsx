@@ -5,9 +5,9 @@ import { Section } from "@/components/site/Section";
 export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
-      { title: "Politique de confidentialité — Lions Academy" },
-      { name: "description", content: "Politique de confidentialité de Lions Academy : collecte, utilisation et protection de vos données." },
-      { property: "og:title", content: "Politique de confidentialité — Lions Academy" },
+      { title: "Politique de confidentialité — Lions Academie" },
+      { name: "description", content: "Politique de confidentialité de Lions Academie : collecte, utilisation et protection de vos données." },
+      { property: "og:title", content: "Politique de confidentialité — Lions Academie" },
       { property: "og:description", content: "Comment nous traitons et protégeons vos données personnelles." },
     ],
   }),
@@ -20,7 +20,7 @@ function Privacy() {
       <PageHero eyebrow="Légal" title="Politique de confidentialité" />
       <Section>
         <article className="prose-like max-w-3xl space-y-6 text-muted-foreground leading-relaxed">
-          <p>Lions Academy s'engage à protéger la vie privée de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons et protégeons vos données personnelles.</p>
+          <p>Lions Academie s'engage à protéger la vie privée de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons et protégeons vos données personnelles.</p>
           <h2 className="font-display text-2xl text-foreground">1. Données collectées</h2>
           <p>Nous collectons uniquement les informations que vous nous transmettez via nos formulaires : nom, email, téléphone, ville, niveau d'étude et message.</p>
           <h2 className="font-display text-2xl text-foreground">2. Utilisation</h2>

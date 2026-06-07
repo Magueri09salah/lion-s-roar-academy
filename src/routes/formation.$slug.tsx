@@ -14,9 +14,9 @@ export const Route = createFileRoute("/formation/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.formation.title} — Lions Academy` },
+      { title: `${loaderData?.formation.title} — Lions Academie` },
       { name: "description", content: loaderData?.formation.summary },
-      { property: "og:title", content: `${loaderData?.formation.title} — Lions Academy` },
+      { property: "og:title", content: `${loaderData?.formation.title} — Lions Academie` },
       { property: "og:description", content: loaderData?.formation.summary },
       { property: "og:image", content: loaderData?.formation.cover },
     ],

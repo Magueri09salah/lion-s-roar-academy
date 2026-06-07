@@ -50,9 +50,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lions Academy — Formation en architecture d'intérieur & décoration" },
+      { title: "Lions Academie — Formation en architecture d'intérieur & décoration" },
       { name: "description", content: "Académie de formation à distance en architecture d'intérieur et décoration. Méthode pratique, logiciels professionnels, certificat sur validation." },
-      { property: "og:title", content: "Lions Academy" },
+      { property: "og:title", content: "Lions Academie" },
       { property: "og:description", content: "Apprendre l'architecture d'intérieur à distance — méthode pratique, structurée et professionnelle." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

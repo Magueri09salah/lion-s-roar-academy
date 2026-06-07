@@ -8,7 +8,7 @@ export interface StatusBadgeData {
   tone: StatusTone;
 }
 
-// Backend "tone" → Lions Academy design tokens.
+// Backend "tone" → Lions Academie design tokens.
 const TONE_STYLES: Record<StatusTone, { bg: string; text: string; border: string }> = {
   gold: {
     bg: "color-mix(in oklab, var(--gold) 18%, transparent)",
