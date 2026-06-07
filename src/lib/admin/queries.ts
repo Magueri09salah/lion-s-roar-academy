@@ -728,7 +728,7 @@ export type ExportFormat = "csv" | "xlsx";
 export function buildExportUrl(params: RegistrationListParams = {}, format: ExportFormat = "csv"): string {
   const url = new URL(
     `/api/v1/admin/registrations/export.${format}`,
-    (import.meta.env.VITE_API_URL as string) ?? "http://127.0.0.1:8000",
+    (import.meta.env.VITE_API_URL as string) ?? "https://api.lionsacademie.com",
   );
   if (params.q) url.searchParams.set("q", params.q);
   if (params.status?.length) params.status.forEach((s) => url.searchParams.append("status[]", s));
@@ -742,7 +742,7 @@ export function buildExportUrl(params: RegistrationListParams = {}, format: Expo
 export function buildConcoursExportUrl(params: ConcoursListParams = {}, format: ExportFormat = "csv"): string {
   const url = new URL(
     `/api/v1/admin/registrations-concours/export.${format}`,
-    (import.meta.env.VITE_API_URL as string) ?? "http://127.0.0.1:8000",
+    (import.meta.env.VITE_API_URL as string) ?? "https://api.lionsacademie.com",
   );
   if (params.q) url.searchParams.set("q", params.q);
   if (params.status?.length) params.status.forEach((s) => url.searchParams.append("status[]", s));

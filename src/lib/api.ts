@@ -11,7 +11,7 @@
 // content for now. They can be migrated to these fetchers one by one in
 // a later phase — the data shapes already match.
 
-const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "https://api.lionsacademie.com").replace(/\/$/, "");
 
 // ---------- Shared types ------------------------------------------------
 

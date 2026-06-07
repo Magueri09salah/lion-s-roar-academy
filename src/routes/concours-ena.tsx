@@ -6,7 +6,7 @@ import { AlertTriangle, ArrowRight, Award, Check, ChevronDown, Compass, Graduati
 // __root.tsx hides the global Header / Footer / WhatsApp button on this
 // route so the form is the only call to action.
 
-const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "https://api.lionsacademie.com").replace(/\/$/, "");
 
 export const Route = createFileRoute("/concours-ena")({
   // Settings (video URLs) are fetched at the route level so the page can
