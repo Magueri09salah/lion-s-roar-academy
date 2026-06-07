@@ -2,6 +2,7 @@ import { Link, createFileRoute, useNavigate, useSearch } from "@tanstack/react-r
 import { Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { z } from "zod";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { useContactMessagesQuery } from "@/lib/admin/queries";
@@ -103,16 +104,15 @@ function MessagesList() {
           )}
         </form>
 
-        <select
+        <AdminSelect
           value={search.sort ?? "-submitted_at"}
           onChange={(e) => updateSearch({ sort: e.target.value })}
-          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm"
         >
           <option value="-submitted_at">Plus récents d'abord</option>
           <option value="submitted_at">Plus anciens d'abord</option>
           <option value="subject">Sujet (A-Z)</option>
           <option value="-subject">Sujet (Z-A)</option>
-        </select>
+        </AdminSelect>
 
         {isFetching && !isLoading && (
           <span className="text-xs text-muted-foreground">Mise à jour…</span>

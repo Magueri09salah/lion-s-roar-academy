@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, FileDown, FileSpreadsheet, Search, Settings2
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { getStoredToken } from "@/lib/admin/auth";
@@ -165,16 +166,15 @@ function ConcoursList() {
           </>
         )}
 
-        <select
+        <AdminSelect
           value={search.sort ?? "-priority"}
           onChange={(e) => updateSearch({ sort: e.target.value })}
-          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm"
         >
           <option value="-priority">Priorité (haut → bas)</option>
           <option value="-submitted_at">Plus récents</option>
           <option value="submitted_at">Plus anciens</option>
           <option value="full_name">Nom (A-Z)</option>
-        </select>
+        </AdminSelect>
 
         {isFetching && !isLoading && <span className="text-xs text-muted-foreground">Mise à jour…</span>}
       </div>
@@ -257,14 +257,14 @@ function TabPill({ active, label, count, onClick, small }: { active: boolean; la
 
 function FilterSelect({ placeholder, value, options, onChange }: { placeholder: string; value: string | undefined; options: Array<{ value: string; label: string }>; onChange: (v: string | undefined) => void }) {
   return (
-    <select
+    <AdminSelect
+      size="sm"
       value={value ?? ""}
       onChange={(e) => onChange(e.target.value || undefined)}
-      className="rounded-full border border-border bg-card px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-ring"
     >
       <option value="">{placeholder} — Toutes</option>
       {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-    </select>
+    </AdminSelect>
   );
 }
 

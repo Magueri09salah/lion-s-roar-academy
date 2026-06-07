@@ -1,33 +1,30 @@
-import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Outlet, createFileRoute, redirect, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ConfirmProvider } from "@/components/admin/ConfirmDialog";
 import { getStoredToken } from "@/lib/admin/auth";
 
 // Parent layout for every /admin/* route.
 //
-// The auth guard lives here in beforeLoad. It runs for any URL starting
-// with /admin, but is bypassed for /admin/login itself — otherwise an
-// unauthenticated visitor would loop (redirect to login → guard fires →
-// redirect to login → …).
+// Auth guard:
+//   - beforeLoad checks the Sanctum token in localStorage and redirects
+//     to /admin/login if missing. Runs on client navigation only because
+//     localStorage doesn't exist during SSR.
+//   - For first-paint (SSR) of a protected URL, we render a loading
+//     screen instead of <Outlet /> so the dashboard never flashes
+//     before the client-side redirect kicks in.
 //
-// This component renders just <Outlet />. The actual back-office chrome
-// (sidebar + header) lives in <AdminShell> imported by each leaf page so
-// the login screen can render without the shell.
+// Public auth surfaces (login, forgot-password, reset-password) bypass
+// both checks — they need to render normally on SSR.
+
+const PUBLIC_PATHS = new Set([
+  "/admin/login",
+  "/admin/forgot-password",
+  "/admin/reset-password",
+]);
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: ({ location }) => {
-    // Public auth surfaces — the user must NOT be redirected to /admin/login
-    // when visiting these (forgot-password / reset-password are reached
-    // when they don't yet have a session).
-    const PUBLIC_PATHS = new Set([
-      "/admin/login",
-      "/admin/forgot-password",
-      "/admin/reset-password",
-    ]);
     if (PUBLIC_PATHS.has(location.pathname)) return;
-
-    // Server-rendered first paint has no localStorage → token is null;
-    // we let the route render and the client will redirect on hydration.
-    // For client navigation, we redirect synchronously here.
     if (typeof window === "undefined") return;
 
     if (!getStoredToken()) {
@@ -47,12 +44,46 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminLayout() {
-  // ConfirmProvider mounts the styled confirmation dialog used by every
-  // delete button in the back-office. Scoped to /admin/* so it doesn't
-  // ship to the public site bundle / DOM.
+  const { location } = useRouterState();
+  const isPublicPath = PUBLIC_PATHS.has(location.pathname);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  // SSR + initial hydration on a protected URL → render a loading
+  // screen. After useEffect runs (post-hydration), beforeLoad will have
+  // either redirected to /admin/login or allowed the page through.
+  if (!hydrated && !isPublicPath) {
+    return <AuthLoading />;
+  }
+
   return (
     <ConfirmProvider>
       <Outlet />
     </ConfirmProvider>
+  );
+}
+
+function AuthLoading() {
+  return (
+    <div className="min-h-screen grid place-items-center" style={{ background: "var(--ivory)" }}>
+      <div className="text-center">
+        <div
+          className="w-10 h-10 mx-auto rounded-full border-2 animate-spin"
+          style={{
+            borderColor: "color-mix(in oklab, var(--gold) 30%, transparent)",
+            borderTopColor: "var(--gold)",
+          }}
+        />
+        <div
+          className="mt-4 text-[11px] uppercase tracking-[0.22em]"
+          style={{ color: "color-mix(in oklab, var(--ink) 55%, transparent)" }}
+        >
+          Chargement…
+        </div>
+      </div>
+    </div>
   );
 }

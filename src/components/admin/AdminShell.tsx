@@ -53,12 +53,12 @@ export function AdminShell({ children, title, eyebrow, actions }: {
     <div className="min-h-screen flex" style={{ background: "var(--ivory)" }}>
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-72 shrink-0 transform border-r transition-transform duration-200 ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-72 shrink-0 transform border-r transition-transform duration-200 flex flex-col ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
         style={{ background: "var(--ink)", color: "var(--ivory)", borderColor: "color-mix(in oklab, var(--ink) 85%, var(--gold))" }}
       >
-        <div className="h-18 flex items-center gap-2.5 px-6 border-b" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
+        <div className="shrink-0 h-18 flex items-center gap-2.5 px-6 border-b" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
           <span className="grid place-items-center w-9 h-9 rounded-full font-display text-base" style={{ background: "var(--gradient-gold)", color: "var(--ink)" }}>L</span>
           <span className="leading-tight">
             <span className="block font-display text-base tracking-tight">LIONS ACADEMY</span>
@@ -66,7 +66,7 @@ export function AdminShell({ children, title, eyebrow, actions }: {
           </span>
         </div>
 
-        <nav className="px-4 py-6 space-y-1">
+        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
           {NAV.map((n) => {
             const Icon = n.icon;
             const active = n.to === "/admin"
@@ -104,7 +104,7 @@ export function AdminShell({ children, title, eyebrow, actions }: {
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
+        <div className="shrink-0 p-4 border-t" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
           <div className="rounded-xl px-3 py-3" style={{ background: "color-mix(in oklab, var(--ivory) 6%, transparent)" }}>
             <div className="text-xs uppercase tracking-[0.18em]" style={{ color: "color-mix(in oklab, var(--ivory) 55%, transparent)" }}>Connecté</div>
             <div className="mt-1 truncate text-sm font-medium">{user?.name ?? "—"}</div>
