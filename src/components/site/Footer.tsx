@@ -7,8 +7,14 @@ export function Footer() {
     <footer className="mt-24 bg-ink text-ivory">
       <div className="container-page py-16 grid gap-12 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2.5">
-            <span className="grid place-items-center w-9 h-9 rounded-full bg-ivory text-ink font-display text-base">L</span>
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.png"
+              alt="Lions Academie"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-md object-contain"
+            />
             <span className="font-display text-2xl">LIONS ACADEMIE</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-ivory/70 leading-relaxed">

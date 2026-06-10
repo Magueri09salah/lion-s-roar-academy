@@ -59,7 +59,13 @@ export function AdminShell({ children, title, eyebrow, actions }: {
         style={{ background: "var(--ink)", color: "var(--ivory)", borderColor: "color-mix(in oklab, var(--ink) 85%, var(--gold))" }}
       >
         <div className="shrink-0 h-18 flex items-center gap-2.5 px-6 border-b" style={{ borderColor: "color-mix(in oklab, var(--ivory) 12%, transparent)" }}>
-          <span className="grid place-items-center w-9 h-9 rounded-full font-display text-base" style={{ background: "var(--gradient-gold)", color: "var(--ink)" }}>L</span>
+          <img
+            src="/logo.png"
+            alt="Lions Academie"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-md object-contain"
+          />
           <span className="leading-tight">
             <span className="block font-display text-base tracking-tight">LIONS ACADEMIE</span>
             <span className="block text-[10px] uppercase tracking-[0.22em]" style={{ color: "color-mix(in oklab, var(--ivory) 55%, transparent)" }}>Back-office</span>

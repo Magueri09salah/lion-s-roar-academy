@@ -11,8 +11,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/85 border-b border-border/60">
       <div className="container-page flex h-18 items-center justify-between py-4">
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <span className="grid place-items-center w-9 h-9 rounded-full bg-ink text-ivory font-display text-base">L</span>
+        <Link to="/" className="flex items-center gap-2.5 group" aria-label="Lions Academie">
+          <img
+            src="/logo.png"
+            alt="Lions Academie"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-md object-contain"
+          />
           <span className="leading-tight">
             <span className="block font-display text-lg tracking-tight">LIONS ACADEMIE</span>
             <span className="block text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Formation d'élite</span>
