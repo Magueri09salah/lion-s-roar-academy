@@ -170,13 +170,13 @@ function ConcoursLandingPage() {
       <HeroSection settings={settings} />
       <ChiffresCles />
       <PourquoiSePreparer />
+      <FormSection />
       <WhyUsSection />
       {settings.explainer_video_url && <ExplainerSection settings={settings} />}
       <ProgrammeSection />
       <CommentCaMarche />
       <TarifsSection />
       <WhatsAppSuccessSection />
-      <FormSection />
       <FinalCTA />
       <LandingFooter />
       <FloatingWhatsApp />
