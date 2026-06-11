@@ -425,6 +425,8 @@ export interface ConcoursListItem {
   filiere: LabelValue;
   regional_grade: LabelValue;
   preferred_format: LabelValue;
+  /** Architecture concours the lead is targeting (multi-select). */
+  concours_vise: LabelValue[];
   status: RegistrationConcoursStatusBadge;
   priority: RegistrationConcoursPriorityBadge;
   passed_ena_before: boolean;
@@ -432,6 +434,8 @@ export interface ConcoursListItem {
 }
 
 export interface ConcoursDetail extends ConcoursListItem {
+  /** Optional free-form message from the lead. */
+  message: string | null;
   admin_notes: string | null;
   ip_address: string | null;
   user_agent: string | null;

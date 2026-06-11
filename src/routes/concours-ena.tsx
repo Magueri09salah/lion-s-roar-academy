@@ -905,7 +905,14 @@ function FormSection() {
   const [filiere, setFiliere] = useState<string>("");
   const [grade, setGrade] = useState<string>("");
   const [city, setCity] = useState<string>("");
-  const [concoursVise, setConcoursVise] = useState<string>("ena");
+  // Multi-select: a lead may target multiple concours at once.
+  // Default to ENA so the field is never empty when the page loads.
+  const [concoursVise, setConcoursVise] = useState<string[]>(["ena"]);
+  function toggleConcours(value: string) {
+    setConcoursVise((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+    );
+  }
   const [format, setFormat] = useState<string>("");
   const [passedBefore, setPassedBefore] = useState<"yes" | "no" | "">("");
   const [message, setMessage] = useState("");
@@ -916,7 +923,7 @@ function FormSection() {
     setTopError(null);
     setFieldErrors({});
 
-    if (!filiere || !grade || !city || !concoursVise || !format || passedBefore === "") {
+    if (!filiere || !grade || !city || concoursVise.length === 0 || !format || passedBefore === "") {
       setTopError("Merci de répondre à toutes les questions.");
       setSubmitting(false);
       return;
@@ -1019,13 +1026,22 @@ function FormSection() {
                 </div>
               </fieldset>
 
-              {/* CONCOURS VISÉ */}
+              {/* CONCOURS VISÉ — multi-select */}
               <fieldset>
                 <Legend icon={Trophy} text="Concours visé *" />
-                <p className="text-xs text-muted-foreground mb-3">Le concours d'architecture que tu prépares.</p>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Sélectionne un ou plusieurs concours d'architecture que tu prépares.
+                </p>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {CONCOURS.map((c) => (
-                    <RadioCard key={c.value} name="concours_vise" value={c.value} checked={concoursVise === c.value} onChange={() => setConcoursVise(c.value)} label={c.label} />
+                    <CheckboxCard
+                      key={c.value}
+                      name="concours_vise"
+                      value={c.value}
+                      checked={concoursVise.includes(c.value)}
+                      onChange={() => toggleConcours(c.value)}
+                      label={c.label}
+                    />
                   ))}
                 </div>
                 {fieldErrors.concours_vise?.[0] && <p className="mt-2 text-xs" style={{ color: "var(--terracotta)" }}>{fieldErrors.concours_vise[0]}</p>}
@@ -1330,6 +1346,56 @@ function TextField({
       />
       {error && <p className="mt-1.5 text-xs" style={{ color: "var(--terracotta)" }}>{error}</p>}
     </div>
+  );
+}
+
+function CheckboxCard({
+  name, value, checked, onChange, label, hint,
+}: {
+  name: string;
+  value: string;
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+  hint?: string;
+}) {
+  return (
+    <label
+      className="relative cursor-pointer rounded-xl border bg-card px-4 py-3 transition-all hover:border-foreground"
+      style={
+        checked
+          ? { borderColor: "var(--ink)", background: "color-mix(in oklab, var(--gold) 10%, transparent)" }
+          : { borderColor: "var(--border)" }
+      }
+    >
+      <input
+        type="checkbox"
+        name={`${name}[]`}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        className="sr-only"
+      />
+      <div className="flex items-start gap-3">
+        <span
+          className="grid place-items-center w-5 h-5 rounded-md border shrink-0 mt-0.5 transition-colors"
+          style={{
+            borderColor: checked ? "var(--gold)" : "color-mix(in oklab, var(--ink) 20%, transparent)",
+            background: checked ? "var(--gold)" : "transparent",
+          }}
+        >
+          {checked && (
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8.5L6.5 12L13 4.5" stroke="var(--ink)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </span>
+        <div className="min-w-0">
+          <div className="text-sm font-medium leading-tight">{label}</div>
+          {hint && <div className="text-[11px] text-muted-foreground mt-0.5">{hint}</div>}
+        </div>
+      </div>
+    </label>
   );
 }
 

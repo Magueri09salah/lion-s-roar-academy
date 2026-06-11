@@ -143,6 +143,40 @@ function ConcoursDetail() {
               <InfoRow icon={Target} label="Format souhaité" value={data.preferred_format.label} />
               <InfoRow icon={BookOpen} label="Priorité commerciale" value={data.priority.label} />
             </div>
+
+            {data.concours_vise.length > 0 && (
+              <div className="mt-5 pt-5 border-t" style={{ borderColor: "var(--border)" }}>
+                <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Concours visé{data.concours_vise.length > 1 ? "s" : ""}
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {data.concours_vise.map((c) => (
+                    <span
+                      key={c.value}
+                      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
+                      style={{
+                        background: "color-mix(in oklab, var(--gold) 18%, transparent)",
+                        color: "color-mix(in oklab, var(--ink) 90%, transparent)",
+                        border: "1px solid color-mix(in oklab, var(--gold) 40%, transparent)",
+                      }}
+                    >
+                      {c.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {data.message && (
+              <div className="mt-5 pt-5 border-t" style={{ borderColor: "var(--border)" }}>
+                <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Message du candidat
+                </div>
+                <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "color-mix(in oklab, var(--ink) 85%, transparent)" }}>
+                  {data.message}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
