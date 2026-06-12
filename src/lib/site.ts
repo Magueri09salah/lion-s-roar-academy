@@ -1,8 +1,8 @@
 export const SITE = {
   name: "Lions Academie",
   tagline: "Académie d'architecture d'intérieur & décoration",
-  phone: "+212 693 459 903",
-  whatsapp: "212693459903",
+  phone: "+212 693 459 907",
+  whatsapp: "212693459907",
   whatsappMessage: "Bonjour Lions Academie, je souhaite avoir plus d'informations sur la formation.",
   email: "contact@lionsacademie.ma",
   city: "Marrakech, Maroc",
