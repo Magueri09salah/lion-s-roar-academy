@@ -99,12 +99,21 @@
     background: var(--gold);
     display: inline-block;
   }
+
+  .btn-gold-hero {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-10 py-6 text-sm font-medium transition-all;
+    background: var(--gradient-gold);
+    color: var(--ink);
+    box-shadow: var(--shadow-soft);
+  }
+
   .btn-gold {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium transition-all;
     background: var(--gradient-gold);
     color: var(--ink);
     box-shadow: var(--shadow-soft);
   }
+  
   .btn-gold:hover { transform: translateY(-1px); box-shadow: var(--shadow-elegant); }
   .btn-ink {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium transition-all;
@@ -113,6 +122,11 @@
   .btn-ink:hover { background: color-mix(in oklab, var(--ink) 88%, var(--gold)); }
   .btn-outline-ink {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium transition-all border;
+    border-color: color-mix(in oklab, var(--ink) 25%, transparent);
+    color: var(--ink);
+  }
+  .btn-outline-ink-hero {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-10 py-6 text-sm font-medium transition-all border;
     border-color: color-mix(in oklab, var(--ink) 25%, transparent);
     color: var(--ink);
   }

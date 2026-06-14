@@ -217,22 +217,22 @@ function HeroSection({ settings }: { settings: ConcoursSettings }) {
             <em className="not-italic" style={{ color: "var(--gold)" }}>avec méthode</em>, pas avec le hasard.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-6 max-w-xl text-sm text-muted-foreground leading-relaxed">
             Une préparation complète pour réussir les concours d'architecture : dessin, culture générale,
             QCM, lecture de plans, méthodologie et gestion du temps.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <button onClick={scrollToForm} className="btn-gold">
-              Recevoir le programme <ArrowRight size={16} />
+            <button onClick={scrollToForm} className="btn-gold-hero">
+              S'inscrire <ArrowRight size={16} />
             </button>
             <a
               href={whatsappUrl("Bonjour Lions Academie, je souhaite réserver ma place pour la préparation au concours d'architecture.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline-ink"
+              className="btn-outline-ink-hero"
             >
-              <MessageCircle size={14} /> Réserver ma place
+              <MessageCircle size={14} /> Contacter le prof
             </a>
           </div>
 
