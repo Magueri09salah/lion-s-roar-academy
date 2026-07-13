@@ -39,6 +39,8 @@ export interface Formation {
 
 export interface ProgramMonth {
   id?: number;
+  /** Formation this month belongs to — used by the /programme filter. */
+  formation?: { id: number; title: string; slug: string } | null;
   position?: number;
   month: string;
   title: string;

@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Plus, Pencil, Trash2, X, Eye, EyeOff, Save, GripVertical } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Plus, Pencil, Trash2, X, Eye, EyeOff, Save, GripVertical, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { useConfirm } from "@/components/admin/ConfirmDialog";
 import {
+  useAdminFormationsQuery,
   useAdminProgrammeQuery,
   useCreateProgramMonthMutation,
   useDeleteProgramMonthMutation,
   useUpdateProgramMonthMutation,
 } from "@/lib/admin/queries";
-import type { AdminProgramMonth } from "@/lib/admin/types";
+import type { AdminFormation, AdminProgramMonth } from "@/lib/admin/types";
 
 export const Route = createFileRoute("/admin/programme/")({
   component: ProgrammeAdmin,
@@ -29,7 +31,16 @@ type EditorState =
 
 function ProgrammeAdmin() {
   const { data: items, isLoading } = useAdminProgrammeQuery();
+  const { data: formations } = useAdminFormationsQuery();
   const [editor, setEditor] = useState<EditorState>({ mode: "closed" });
+  // "" = all formations. Client-side filter — the whole list is already loaded.
+  const [formationFilter, setFormationFilter] = useState<string>("");
+
+  const visibleItems = useMemo(() => {
+    if (!items) return items;
+    if (!formationFilter) return items;
+    return items.filter((m) => String(m.formation?.id ?? "") === formationFilter);
+  }, [items, formationFilter]);
 
   return (
     <AdminShell
@@ -45,20 +56,41 @@ function ProgrammeAdmin() {
         </button>
       }
     >
-      <p className="text-sm text-muted-foreground mb-6 max-w-2xl">
-        Les mois du programme sont affichés en ordre de position sur la page publique
-        <em> /programme</em>. Désactivez un mois pour le retirer du site sans le supprimer.
+      <p className="text-sm text-muted-foreground mb-4 max-w-2xl">
+        Chaque mois appartient à une formation. Les mois sont affichés en ordre de position sur la page
+        publique <em>/programme</em>, filtrable par formation. Désactivez un mois pour le retirer du site
+        sans le supprimer.
       </p>
+
+      <div className="mb-6 flex items-center gap-3 flex-wrap">
+        <AdminSelect
+          value={formationFilter}
+          onChange={(e) => setFormationFilter(e.target.value)}
+          aria-label="Filtrer par formation"
+        >
+          <option value="">Formation — Toutes</option>
+          {(formations ?? []).map((f) => (
+            <option key={f.id} value={String(f.id)}>{f.title}</option>
+          ))}
+        </AdminSelect>
+        {formationFilter && visibleItems && (
+          <span className="text-xs text-muted-foreground">
+            {visibleItems.length} mois dans cette formation
+          </span>
+        )}
+      </div>
 
       <div className="space-y-3">
         {isLoading ? (
           <SkeletonCards />
-        ) : !items || items.length === 0 ? (
+        ) : !visibleItems || visibleItems.length === 0 ? (
           <div className="card-elegant text-center py-12 text-sm text-muted-foreground">
-            Aucun mois enregistré. Cliquez sur « Nouveau mois » pour démarrer.
+            {formationFilter
+              ? "Aucun mois pour cette formation. Cliquez sur « Nouveau mois » pour en créer un."
+              : "Aucun mois enregistré. Cliquez sur « Nouveau mois » pour démarrer."}
           </div>
         ) : (
-          items.map((m) => (
+          visibleItems.map((m) => (
             <article
               key={m.id}
               className="card-elegant flex items-start gap-4"
@@ -75,6 +107,17 @@ function ProgrammeAdmin() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2 flex-wrap">
                   <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{m.month_label}</span>
+                  <span
+                    className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium"
+                    style={{
+                      background: "color-mix(in oklab, var(--gold) 18%, transparent)",
+                      border: "1px solid color-mix(in oklab, var(--gold) 40%, transparent)",
+                    }}
+                    title="Formation"
+                  >
+                    <GraduationCap size={10} />
+                    {m.formation?.title ?? "Sans formation"}
+                  </span>
                   {m.is_active ? (
                     <span className="inline-flex items-center gap-1 text-[10px] font-medium" style={{ color: "oklch(0.42 0.13 145)" }}>
                       <Eye size={11} /> Publié
@@ -129,6 +172,8 @@ function ProgrammeAdmin() {
       {editor.mode !== "closed" && (
         <MonthEditor
           month={editor.mode === "edit" ? editor.month : null}
+          formations={formations ?? []}
+          defaultFormationId={formationFilter}
           onClose={() => setEditor({ mode: "closed" })}
         />
       )}
@@ -145,8 +190,17 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
-function MonthEditor({ month, onClose }: { month: AdminProgramMonth | null; onClose: () => void }) {
+function MonthEditor({ month, formations, defaultFormationId, onClose }: {
+  month: AdminProgramMonth | null;
+  formations: AdminFormation[];
+  /** Pre-selected formation when creating (comes from the active list filter). */
+  defaultFormationId: string;
+  onClose: () => void;
+}) {
   const isEdit = month !== null;
+  const [formationId, setFormationId] = useState<string>(
+    month?.formation ? String(month.formation.id) : defaultFormationId,
+  );
   const [position, setPosition] = useState<string>(String(month?.position ?? ""));
   const [monthLabel, setMonthLabel] = useState(month?.month_label ?? "");
   const [title, setTitle] = useState(month?.title ?? "");
@@ -194,8 +248,14 @@ function MonthEditor({ month, onClose }: { month: AdminProgramMonth | null; onCl
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if (!formationId) {
+      toast.error("Merci de choisir la formation de ce mois.");
+      return;
+    }
+
     const cleanItems = items.map((s) => s.trim()).filter((s) => s !== "");
     const payload = {
+      formation_id: Number(formationId),
       position: Number(position),
       month_label: monthLabel.trim(),
       title: title.trim(),
@@ -248,6 +308,25 @@ function MonthEditor({ month, onClose }: { month: AdminProgramMonth | null; onCl
         </header>
 
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-5">
+          <div>
+            <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2" htmlFor="m-formation">Formation *</label>
+            <select
+              id="m-formation"
+              required
+              value={formationId}
+              onChange={(e) => setFormationId(e.target.value)}
+              className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            >
+              <option value="" disabled>— Choisir la formation —</option>
+              {formations.map((f) => (
+                <option key={f.id} value={String(f.id)}>{f.title}</option>
+              ))}
+            </select>
+            <p className="mt-1 text-[11px] text-muted-foreground">
+              Le mois apparaîtra dans le programme de cette formation sur la page publique.
+            </p>
+          </div>
+
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2" htmlFor="m-position">Position *</label>

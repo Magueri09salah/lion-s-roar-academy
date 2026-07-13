@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"c:/Users/T14s/Desktop/lions academy/lions-academy-api/app/Models/\" \"c:/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Controllers/Api/V1/Admin/\" \"c:/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Controllers/Api/V1/Public/\" 2>&1)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/app/Models/**)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/database/migrations/**)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Controllers/Api/V1/Admin/**)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Controllers/Api/V1/Public/**)",
+      "Bash(ls \"c:/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Requests/ProgramMonth/\" \"c:/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Resources/\" | head -30)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Requests/ProgramMonth/**)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/app/Http/Resources/**)",
+      "Read(//c/Users/T14s/Desktop/lions academy/lions-academy-api/**)",
+      "Bash(php artisan *)",
+      "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\database\\migrations",
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\app\\Models",
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\app\\Http\\Requests\\ProgramMonth",
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\app\\Http\\Controllers\\Api\\V1\\Admin",
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\app\\Http\\Controllers\\Api\\V1\\Public",
+      "c:\\Users\\T14s\\Desktop\\lions academy\\lions-academy-api\\app\\Http\\Resources"
+    ]
+  }
+}

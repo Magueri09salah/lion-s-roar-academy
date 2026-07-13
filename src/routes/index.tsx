@@ -175,10 +175,11 @@ function HomePage() {
         </div>
       </Section>
 
-      {/* PROGRAM PREVIEW */}
-      <Section eyebrow="Programme" title="6 mois, une progression claire" intro="Un parcours structuré, mois après mois, des fondations à la soutenance du projet final.">
+      {/* PROGRAM PREVIEW — scoped to the flagship (first) formation so the
+          homepage doesn't mix months from every formation's programme. */}
+      <Section eyebrow="Programme" title="Une progression claire, mois après mois" intro="Un parcours structuré, des fondations à la soutenance du projet final.">
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {program.map((m) => (
+          {program.filter((m) => !m.formation || m.formation.slug === program[0]?.formation?.slug).map((m) => (
             <li key={m.month} className="card-elegant">
               <span className="eyebrow">{m.month}</span>
               <h3 className="mt-3 font-display text-xl">{m.title}</h3>

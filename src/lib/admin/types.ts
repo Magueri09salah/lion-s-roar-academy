@@ -240,6 +240,8 @@ export interface UpsertPrinciplePayload {
 
 export interface AdminProgramMonth {
   id: number;
+  /** Formation this month belongs to (null if the formation was deleted). */
+  formation: { id: number; title: string; slug: string } | null;
   position: number;
   month_label: string;
   title: string;
@@ -253,6 +255,7 @@ export interface AdminProgramMonth {
 }
 
 export interface UpsertProgramMonthPayload {
+  formation_id: number;
   position: number;
   month_label: string;
   title: string;
