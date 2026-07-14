@@ -51,7 +51,6 @@ function Inscription() {
   // "S'inscrire via WhatsApp" mentions the formation actually chosen.
   const [selectedFormation, setSelectedFormation] = useState<string>(formations[0]?.title ?? "");
 
-  console.log("selecteeeeeeed", selectedFormation);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
