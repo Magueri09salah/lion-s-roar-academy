@@ -47,6 +47,11 @@ function Inscription() {
   const [topError, setTopError] = useState<string | null>(null);
   // WhatsApp continuation URL returned by the API after a successful submission.
   const [whatsappContinue, setWhatsappContinue] = useState<string | null>(null);
+  // Selected formation title — drives the pre-filled WhatsApp message so
+  // "S'inscrire via WhatsApp" mentions the formation actually chosen.
+  const [selectedFormation, setSelectedFormation] = useState<string>(formations[0]?.title ?? "");
+
+  console.log("selecteeeeeeed", selectedFormation);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -156,7 +161,7 @@ function Inscription() {
                   <Field label="Ville" name="city" required error={fieldErrors.city?.[0]} />
                   <Field label="Adresse précise" name="address" required error={fieldErrors.address?.[0]} />
                   <Select label="Niveau d'étude" name="level" options={["Lycée", "Bac", "Bac+2", "Bac+3", "Bac+5", "Autre"]} error={fieldErrors.level?.[0] ?? fieldErrors.education_level?.[0]} />
-                  <Select label="Formation choisie" name="formation" options={formations.map((f) => f.title)} error={fieldErrors.formation?.[0]} />
+                  <Select label="Formation choisie" name="formation" options={formations.map((f) => f.title)} value={selectedFormation} onChange={setSelectedFormation} error={fieldErrors.formation?.[0]} />
                   <Field label="Profession actuelle (optionnel)" name="profession" error={fieldErrors.profession?.[0]} />
                 </div>
                 <div>
@@ -223,7 +228,11 @@ function Inscription() {
                     {submitting ? "Envoi…" : "Envoyer ma demande"}
                   </button>
                   <a
-                    href={whatsappUrl("Bonjour, je souhaite m'inscrire à la formation Architecture d'intérieur & Décoration de Lions Academie.")}
+                    href={whatsappUrl(
+                      selectedFormation
+                        ? `Bonjour, je souhaite m'inscrire à la formation ${selectedFormation} de Lions Academie.`
+                        : "Bonjour, je souhaite m'inscrire à une formation de Lions Academie.",
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline-ink inline-flex items-center gap-2"
@@ -298,12 +307,23 @@ function Field({ label, name, type = "text", required, error }: { label: string;
   );
 }
 
-function Select({ label, name, options, error }: { label: string; name: string; options: string[]; error?: string }) {
+function Select({ label, name, options, error, value, onChange }: {
+  label: string;
+  name: string;
+  options: string[];
+  error?: string;
+  /** Pass value + onChange to make the select controlled (e.g. the
+      formation choice drives the WhatsApp pre-filled message). */
+  value?: string;
+  onChange?: (v: string) => void;
+}) {
   return (
     <div>
       <label className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">{label}</label>
       <select
         name={name}
+        value={value}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
         style={error ? { borderColor: "var(--terracotta)" } : undefined}
       >
